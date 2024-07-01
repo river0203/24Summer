@@ -46,7 +46,7 @@ public class Player : Mob
             transform.position += mPosition * moveSpeed * Time.deltaTime;
 
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.C))
         {
             if (_jumpTime == 0)
             {
@@ -59,7 +59,7 @@ public class Player : Mob
                 //Instantiate()
             }
 
-            if (!Input.GetKey(KeyCode.UpArrow) || _jumpTime >= _jumpTimeLimit) 
+            if (!Input.GetKey(KeyCode.C) || _jumpTime >= _jumpTimeLimit) 
             {
                 _isJump = false;
                 return;
