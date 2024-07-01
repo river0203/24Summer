@@ -18,5 +18,6 @@ public class NatuProject : MonoBehaviour
     void Update()
     {
         mPlayer.move();
+
     }
 }

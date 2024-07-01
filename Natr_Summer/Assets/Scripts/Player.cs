@@ -4,22 +4,34 @@ using UnityEngine;
 
 public class Player : Mob
 {
+    private int     _hp = 3;
+    private int     _damage = 1;
+    private float   _basicSpeed = 8;
+    private float   _basicJumpForce = 8;
+    private float   _jumpTime = 0f;
+    private float   _jumpTimeLimit = 0.1f;
+    private bool    _isJump;
     private Vector3 mPosition;
-
-    //temp value shame
-    private int _hp = 3;
-    private int _damage = 1;
-    private float _basicSpeed = 8;
-    private float _basicJumpForce = 8;
-    private bool _isJump;
-    private float _jumpTime = 0f;
-    private float _jumpTimeLimit = 0.1f;
-    [SerializeField]
     private Rigidbody2D _rigid;
 
-    public override int attack(int damage)
+    void Start()
     {
-        throw new System.NotImplementedException();
+        _rigid = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        move();
+
+    }
+
+    public override void attack(int damage)
+    {
+        if (Input.GetKey(KeyCode.X))
+        {
+            Debug.Log("Attack");
+        }
     }
 
     public override int hit(int damage)
