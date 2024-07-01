@@ -94,4 +94,12 @@ public class Player : Mob
     {
         _jumpTime = 0;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("EnemyWeapon"))
+        {
+            Debug.Log("Hit");
+        }
+    }
 }
