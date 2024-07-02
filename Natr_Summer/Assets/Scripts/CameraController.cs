@@ -12,7 +12,6 @@ public class CameraController : MonoBehaviour
     private int         _dirNumX;
     private int         _dirNumY;
     private string      _playerDir;
-    private string      _befDir;
 
     private void Start()
     {
@@ -27,20 +26,6 @@ public class CameraController : MonoBehaviour
         switch(_playerDir)
         {
             case "up":
-                if(_befDir == "right")
-                {
-                    _dirNumX = 3;
-                }
-                
-                if(_befDir == "right")
-                {
-                    _dirNumX = -3;
-                }
-
-                if(_befDir == "up")
-                {
-                    _dirNumX = 0;
-                }
                 _dirNumY = 0;
                 break;
 
@@ -58,6 +43,5 @@ public class CameraController : MonoBehaviour
         Vector3 dir = player.transform.position - this.transform.position;
         Vector3 moveVector = new Vector3((dir.x + _dirNumX) * cameraSpeed * Time.deltaTime, (dir.y + _dirNumY) * cameraSpeed * Time.deltaTime, 0.0f);
         this.transform.Translate(moveVector);
-        _befDir = _playerDir;
     }
 }
