@@ -6,6 +6,7 @@ public class Player : Mob
 {
     private int     _hp = 3;
     private int     _damage = 1;
+    private string  _moveDir;
     private float   _basicSpeed = 8;
     private float   _basicJumpForce = 8;
     private float   _jumpTime = 0f;
@@ -25,6 +26,8 @@ public class Player : Mob
         move();
 
     }
+
+    public string getMoveDir() { return _moveDir; }
 
     public override void attack(int damage)
     {
@@ -46,6 +49,7 @@ public class Player : Mob
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
+            _moveDir = "right";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.right;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
@@ -53,6 +57,7 @@ public class Player : Mob
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+            _moveDir = "left";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.left;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
@@ -60,6 +65,7 @@ public class Player : Mob
         }
         if (Input.GetKey(KeyCode.C))
         {
+            _moveDir = "up";
             if (_jumpTime == 0)
             {
                 Vector3 pos = transform.position;
@@ -99,7 +105,7 @@ public class Player : Mob
     {
         if(collision.collider.CompareTag("EnemyWeapon"))
         {
-            Debug.Log("Hit");
+            Debug.Log("Player : Hit");
         }
     }
 }
