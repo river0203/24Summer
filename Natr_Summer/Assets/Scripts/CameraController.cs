@@ -21,32 +21,39 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        _playerDir = _strDir.getMoveDir();
-
-        switch(_playerDir)
+        if(player == null)
         {
-            case "up":
-                _dirNumY = 0;
-                break;
-
-            case "left":
-                _dirNumX = -5;
-                _dirNumY = 0;
-                break;
-
-            case "right":
-                _dirNumX = 5;
-                _dirNumY = 0;
-                break;
-
-            case "None":
-                _dirNumX = 0;
-                _dirNumY = 0;
-                break;
+            this.transform.Translate(0, 0, 0);
         }
+        else
+        {
+            _playerDir = _strDir.getMoveDir();
 
-        Vector3 dir = player.transform.position - this.transform.position;
-        Vector3 moveVector = new Vector3((dir.x + _dirNumX) * cameraSpeed * Time.deltaTime, (dir.y + _dirNumY) * cameraSpeed * Time.deltaTime, 0.0f);
-        this.transform.Translate(moveVector);
+            switch (_playerDir)
+            {
+                case "up":
+                    _dirNumY = 0;
+                    break;
+
+                case "left":
+                    _dirNumX = -5;
+                    _dirNumY = 0;
+                    break;
+
+                case "right":
+                    _dirNumX = 5;
+                    _dirNumY = 0;
+                    break;
+
+                case "None":
+                    _dirNumX = 0;
+                    _dirNumY = 0;
+                    break;
+            }
+
+            Vector3 dir = player.transform.position - this.transform.position;
+            Vector3 moveVector = new Vector3((dir.x + _dirNumX) * cameraSpeed * Time.deltaTime, (dir.y + _dirNumY) * cameraSpeed * Time.deltaTime, 0.0f);
+            this.transform.Translate(moveVector);
+        }
     }
 }

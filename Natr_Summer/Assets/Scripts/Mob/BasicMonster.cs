@@ -7,11 +7,13 @@ public class BasicMonster : Mob
     private int     _nextMoveDir = 1;
     private int     _beforeMoveDir;
     private float   _thintTime = 0f;
-    private float   _damage;
+    private float   _damage = 1; // mob Weapon으로 전환
     private float   _hp;
     private float   _moveSpeed;
+
     private Rigidbody2D _rigid;
     private RaycastHit  _checkGround;
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -24,16 +26,6 @@ public class BasicMonster : Mob
     void FixedUpdate()
     {
         move();
-    }
-
-    public override void attack(int damage)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override int hit(int damage)
-    {
-        throw new System.NotImplementedException();
     }
 
     public override void move()

@@ -5,13 +5,13 @@ using UnityEngine;
 public class Player : Mob
 {
     private int     _hp = 3;
-    private int     _damage = 1;
     private string  _moveDir;
     private float   _basicSpeed = 8;
     private float   _basicJumpForce = 8;
     private float   _jumpTime = 0f;
     private float   _jumpTimeLimit = 0.1f;
     private bool    _isJump;
+
     private Vector3 mPosition;
     private Rigidbody2D _rigid;
 
@@ -24,23 +24,9 @@ public class Player : Mob
     void Update()
     {
         move();
-
     }
 
     public string getMoveDir() { return _moveDir; }
-
-    public override void attack(int damage)
-    {
-        if (Input.GetKey(KeyCode.X))
-        {
-            Debug.Log("Attack");
-        }
-    }
-
-    public override int hit(int damage)
-    {
-        throw new System.NotImplementedException();
-    }
 
     public override void move()
     {
@@ -114,7 +100,18 @@ public class Player : Mob
     {
         if(collision.collider.CompareTag("EnemyWeapon"))
         {
-            Debug.Log("Player : Hit");
+            Debug.Log("Player : Hit\n");
+            Debug.Log($"{_hp}");
+
+            if (_hp <= 0)
+            {
+                dead(this.gameObject);
+            }
+            else
+            {
+                _hp -= 1; // 상대 데미지를 받아와야함
+
+            }
         }
     }
 }

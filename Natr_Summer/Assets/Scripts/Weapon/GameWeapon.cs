@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class GameWeapon 
 {
+    public abstract int getWeaponDamage();
     public abstract void checkAttackCrash();
-    public abstract void setWeaponStats();
 }
