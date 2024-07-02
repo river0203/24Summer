@@ -55,7 +55,7 @@ public class Player : Mob
             transform.position += mPosition * moveSpeed * Time.deltaTime;
 
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             _moveDir = "left";
             moveSpeed = _basicSpeed;
@@ -63,6 +63,14 @@ public class Player : Mob
             transform.position += mPosition * moveSpeed * Time.deltaTime;
 
         }
+        else
+        {
+            _moveDir = "None";
+            moveSpeed = 0;
+            transform.position += mPosition * moveSpeed * Time.deltaTime;
+
+        }
+
         if (Input.GetKey(KeyCode.C))
         {
             _moveDir = "up";
@@ -89,6 +97,7 @@ public class Player : Mob
         }
         else
         {
+            
             moveSpeed = 0;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
 

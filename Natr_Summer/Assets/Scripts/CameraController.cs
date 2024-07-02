@@ -38,6 +38,11 @@ public class CameraController : MonoBehaviour
                 _dirNumX = 5;
                 _dirNumY = 0;
                 break;
+
+            case "None":
+                _dirNumX = 0;
+                _dirNumY = 0;
+                break;
         }
 
         Vector3 dir = player.transform.position - this.transform.position;
