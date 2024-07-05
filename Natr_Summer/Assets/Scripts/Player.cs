@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Mob
 {
     private int     _hp = 3;
     private string  _moveDir;
+    private float   _mobDir;
+    private float   _attackRange = 10f; // mob find range
     private float   _basicSpeed = 8;
     private float   _basicJumpForce = 8;
     private float   _jumpTime = 0f;
@@ -14,6 +17,7 @@ public class Player : Mob
 
     private Vector3 mPosition;
     private Rigidbody2D _rigid;
+    private GameObject _enemy;
 
     void Start()
     {
@@ -23,11 +27,26 @@ public class Player : Mob
     // Update is called once per frame
     void Update()
     {
+        checkPlayertoMobDir();
         move();
     }
-
     public string getMoveDir() { return _moveDir; }
+    public float checkPlayertoMobDir()
+    {
+        _enemy = GameObject.FindGameObjectWithTag("EnemyWeapon");
+        _mobDir =  Vector3.Distance(this.transform.position, _enemy.transform.position);    
 
+
+        return _mobDir;
+    }
+    public override void attack()
+    {
+        throw new System.NotImplementedException();
+    }
+    public override void hit()
+    {
+        throw new System.NotImplementedException();
+    }
     public override void move()
     {
         float moveSpeed;
