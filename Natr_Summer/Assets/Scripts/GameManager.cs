@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        gamePlayer = new Player();
+
     }
     private void Update()
     {

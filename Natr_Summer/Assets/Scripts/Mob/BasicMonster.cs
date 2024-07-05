@@ -14,8 +14,8 @@ public class BasicMonster : Mob
 
     private MobState    _presentMobState;
     private MobState    _nextMobState;
-    private Player      _playerPosition;
 
+    private GameObject      _playerPosition;
     private Rigidbody2D _rigid;
     private RaycastHit  _checkGround;
 
@@ -23,7 +23,7 @@ public class BasicMonster : Mob
     void Start()
     {
         _rigid = GetComponent<Rigidbody2D>();
-        _playerPosition = GetComponent<Player>();   
+        _playerPosition = GameObject.FindGameObjectWithTag("Player");   
         think();
     }
 
@@ -34,11 +34,13 @@ public class BasicMonster : Mob
         {
             dead(this.gameObject);
         }
+        //attack();
         move();
     }
     public override void attack()
     {
-        _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position)
+        _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position);
+        Debug.Log($"{_playerDirection}");
     }
     public override void hit()
     {
