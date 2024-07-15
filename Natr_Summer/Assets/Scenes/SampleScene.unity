@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 614377044}
   - component: {fileID: 614377043}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,7 +574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd23acd3e444dd445b6abb3cf379e4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mobDetectionArea: 10
 --- !u!1 &1958207101
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a200629de0369448d65e45ab3e6b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
