@@ -11,19 +11,23 @@ public class BasicMonster : Mob
     private float   _hp = 2;
     private float   _moveSpeed = 1f;
     private float   _playerDirection;
+    private float   _mobDetectionArea = 7;
 
     private MobState    _presentMobState;
-    private MobState    _nextMobState;
 
-    private GameObject      _playerPosition;
+    private Transform  _playerPosition;
     private Rigidbody2D _rigid;
-    private RaycastHit  _checkGround;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+
+    }
+
     void Start()
     {
-        _rigid = GetComponent<Rigidbody2D>();
-        _playerPosition = GameObject.FindGameObjectWithTag("Player");   
+        _rigid = GetComponent<Rigidbody2D>();   
         think();
     }
 
@@ -34,13 +38,29 @@ public class BasicMonster : Mob
         {
             dead(this.gameObject);
         }
-        //attack();
-        move();
+        if(_presentMobState != MobState.ATTACK)
+        {
+            move();
+        }
+        attack();
     }
     public override void attack()
     {
         _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position);
         Debug.Log($"{_playerDirection}");
+
+        if(_playerDirection <= _mobDetectionArea)
+        {
+            _presentMobState = MobState.ATTACK;
+            Vector3 _mobFollow = _playerPosition.position - this.transform.position;
+            _mobFollow.Normalize();
+
+            transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
+        }
+        else
+        {
+            _presentMobState = MobState.RUN;
+        }
     }
     public override void hit()
     {

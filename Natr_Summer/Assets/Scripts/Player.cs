@@ -5,15 +5,27 @@ using UnityEngine;
 
 public class Player : Mob
 {
-    private int     _hp = 3;
+    private int     _hp = 2;
     private string  _moveDir;
+    //move
     private float   _attackRange = 10f; 
     private float   _basicSpeed = 8;
+    //jump
     private float   _basicJumpForce = 8;
     private float   _jumpTime = 0f;
     private float   _jumpTimeLimit = 0.1f;
+    //knock back
+    private float   _knockBackForce = 5f;
+    private float   _knockBackDuration = 0.5f;
+    private float   _knockBackTimer = 0f;
+    //attack
+    private float   _bulletSpeed = 10f;
+
+    private bool    _isKnockedBack = false;
     private bool    _isJump;
 
+    [SerializeField]
+    private GameObject _bulletPrefab;
     private Vector3 mPosition;
     private Rigidbody2D _rigid;
 
@@ -25,16 +37,43 @@ public class Player : Mob
     // Update is called once per frame
     void Update()
     {
-        move();
+        if(_isKnockedBack) 
+        {
+            _knockBackTimer -= Time.deltaTime;
+
+            if(_knockBackTimer <= 0)
+            {
+                _isKnockedBack = false;
+            }
+        }
     }
+
+    private void FixedUpdate()
+    {
+        move();
+
+    }
+
     public string getMoveDir() { return _moveDir; }
     public override void attack()
     {
-        throw new System.NotImplementedException();
+        if(Input.GetKey(KeyCode.X))
+        {
+           
+        }
     }
     public override void hit()
     {
-        throw new System.NotImplementedException();
+        _hp -= 1; // 상대 데미지를 받아와야함
+
+        if(!_isKnockedBack)
+        {
+            _rigid.velocity = Vector2.zero;
+            //_rigid.AddForce
+
+            _isKnockedBack = true;
+            _knockBackTimer = _knockBackDuration;
+        }
     }
     public override void move()
     {
@@ -117,7 +156,7 @@ public class Player : Mob
             }
             else
             {
-                _hp -= 1; // 상대 데미지를 받아와야함
+                hit();
 
             }
         }

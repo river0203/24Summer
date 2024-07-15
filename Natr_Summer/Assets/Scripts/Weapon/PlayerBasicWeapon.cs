@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class PlayerBasicWeapon : GameWeapon
 {
-    private int weaponDamage = 1;
-    public override int getWeaponDamage()
+    private float _speed = 5f;
+    private float _lifeTime = 10f;
+
+    private Rigidbody2D rigid;
+
+    private void Start()
     {
-        return weaponDamage;
+
+    }
+
+    private void Update()
+    {
+        
     }
     public override void checkAttackCrash()
     {
