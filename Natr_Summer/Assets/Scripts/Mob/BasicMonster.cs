@@ -47,7 +47,6 @@ public class BasicMonster : Mob
     public override void attack()
     {
         _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position);
-        Debug.Log($"{_playerDirection}");
 
         if(_playerDirection <= _mobDetectionArea)
         {
@@ -64,7 +63,12 @@ public class BasicMonster : Mob
     }
     public override void hit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Mob : Hit");
+        if(_hp <= 0 )
+        {
+            dead(this.gameObject);
+        }
+        _hp -= 1; // 플레이어의 공격 정보를 받아와야함
     }
     public override void move()
     {
@@ -89,6 +93,11 @@ public class BasicMonster : Mob
         if (collision.collider.CompareTag("Player"))
         {
             Debug.Log("Mob : Attack");
+        }
+
+        if(collision.collider.CompareTag("PlayerWeapon"))
+        { 
+            hit();
         }
     }
 }

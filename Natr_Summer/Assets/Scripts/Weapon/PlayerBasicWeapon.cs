@@ -11,22 +11,24 @@ public class PlayerBasicWeapon : GameWeapon
 
     private void Start()
     {
-
+        rigid = GetComponent<Rigidbody2D>();
+        Destroy(gameObject, _lifeTime);
     }
 
     private void Update()
     {
-        
+        rigid.velocity = transform.right * _speed;
     }
     public override void checkAttackCrash()
     {
-        //이벤트 발생시 처리할 부분
+        Destroy(gameObject);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("EnemyWeapon") || collision.collider.CompareTag("Enemy"))
         {
             Debug.Log("Player : Attack");
+            checkAttackCrash();
         }
     }
 }

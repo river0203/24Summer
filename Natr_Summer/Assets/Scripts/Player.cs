@@ -51,6 +51,7 @@ public class Player : Mob
     private void FixedUpdate()
     {
         move();
+        attack();
 
     }
 
@@ -59,7 +60,7 @@ public class Player : Mob
     {
         if(Input.GetKey(KeyCode.X))
         {
-           
+            
         }
     }
     public override void hit()
@@ -69,7 +70,7 @@ public class Player : Mob
         if(!_isKnockedBack)
         {
             _rigid.velocity = Vector2.zero;
-            //_rigid.AddForce
+            _rigid.AddForce(mPosition.normalized * _knockBackForce, ForceMode2D.Impulse);
 
             _isKnockedBack = true;
             _knockBackTimer = _knockBackDuration;
