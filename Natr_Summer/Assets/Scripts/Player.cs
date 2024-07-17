@@ -19,13 +19,17 @@ public class Player : Mob
     private float   _knockBackDuration = 0.5f;
     private float   _knockBackTimer = 0f;
     //attack
-    private float   _bulletSpeed = 10f;
+    private float _coolTime = 0.2f;
+    private float curTime;
+
+    [SerializeField]
+    public GameObject bullet;
+    [SerializeField]
+    public Transform pos;
 
     private bool    _isKnockedBack = false;
     private bool    _isJump;
 
-    [SerializeField]
-    private GameObject _bulletPrefab;
     private Vector3 mPosition;
     private Rigidbody2D _rigid;
 
@@ -58,10 +62,16 @@ public class Player : Mob
     public string getMoveDir() { return _moveDir; }
     public override void attack()
     {
-        if(Input.GetKey(KeyCode.X))
+        if (curTime <= 0)
         {
-            
+            if (Input.GetKey(KeyCode.X))
+            {
+                Instantiate(bullet, pos.position, transform.rotation);
+            }
+            curTime = _coolTime;
+
         }
+        curTime -= Time.deltaTime;
     }
     public override void hit()
     {
