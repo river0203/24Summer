@@ -9,8 +9,8 @@ public class FishMob : Mob
 
     private float moveSpeed = 3f;
     private float contactDistance = 2f;
+    private float followDist = 10f;
 
-    private bool follow = false;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class FishMob : Mob
     }
     public void FollowTarget()
     {
-        if(Vector2.Distance(transform.position, targe.position) > contactDistance && follow)
+        if(Vector2.Distance(transform.position, targe.position) < followDist)
         {
             transform.position = Vector2.MoveTowards(transform.position, targe.position, moveSpeed * Time.deltaTime);
         }
@@ -49,13 +49,4 @@ public class FishMob : Mob
         throw new System.NotImplementedException();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        follow = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        follow = false;
-    }
 }
