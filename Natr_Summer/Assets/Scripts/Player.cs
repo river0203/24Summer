@@ -78,7 +78,7 @@ public class Player : Mob
     }
     public override void hit()
     {
-        _hp -= 1; // »ó´ë µ¥¹ÌÁö¸¦ ¹Þ¾Æ¿Í¾ßÇÔ
+        _hp -= 1; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Í¾ï¿½ï¿½ï¿½
 
         if(!_isKnockedBack)
         {
