@@ -6,13 +6,16 @@ public class CryMob : Mob
 {
     private int _nextMoveDir = 1;
     private int _beforeMoveDir;
+    private int _hp = 3;
     private float _thintTime = 0f;
-    [SerializeField]
     private float normalMoveSpeed = 4f;
+    private float backMoveSpeed = 10f;
     private float followDist = 10f;
+    private float attackDist = 3f;
 
     private Rigidbody2D rb;
     private Transform targe;
+    private Vector2 backPosition = new Vector2(16, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,11 @@ public class CryMob : Mob
         if(targe == null || targe != null)
         {
             think();
+        }
+
+        if(_hp <= 0)
+        {
+            dead(this.gameObject);
         }
     }
     private void FixedUpdate()
@@ -64,17 +72,34 @@ public class CryMob : Mob
         }
         else
         {
+            //transform.position = Vector2.MoveTowards(transform.position, backPosition, backMoveSpeed * Time.deltaTime);
             move();
         }
     }
 
     public override void attack()
     {
-        throw new System.NotImplementedException();
+        if (Vector2.Distance(transform.position, targe.position) < attackDist)
+        {
+            Debug.Log("Mob : Attack");
+        }
     }
 
     public override void hit()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Mob : Hit");
+        if (_hp <= 0)
+        {
+            dead(this.gameObject);
+        }
+        _hp -= 1; // 플레이어의 공격 정보를 받아와야함
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerWeapon"))
+        {
+            hit();
+        }
     }
 }
