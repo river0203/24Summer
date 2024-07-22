@@ -15,11 +15,13 @@ public class CryMob : Mob
 
     private Rigidbody2D rb;
     private Transform targe;
+    private Animator _mobAnimator;
     private Vector2 backPosition = new Vector2(16, 0);
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _mobAnimator = GetComponent<Animator>();
         targe = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
@@ -66,6 +68,11 @@ public class CryMob : Mob
     }
     public void FollowTarget()
     {
+        if (Vector2.Distance(transform.position, targe.position) < attackDist)
+        {
+            attack();
+        }
+
         if (Vector2.Distance(transform.position, targe.position) < followDist)
         {
             transform.position = Vector2.MoveTowards(transform.position, targe.position, /*normalMoveSpeed **/ Time.deltaTime);
@@ -79,10 +86,7 @@ public class CryMob : Mob
 
     public override void attack()
     {
-        if (Vector2.Distance(transform.position, targe.position) < attackDist)
-        {
-            Debug.Log("Mob : Attack");
-        }
+        _mobAnimator.SetTrigger("Attack");
     }
 
     public override void hit()
