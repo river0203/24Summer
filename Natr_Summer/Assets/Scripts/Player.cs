@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Mob
@@ -78,7 +77,7 @@ public class Player : Mob
     }
     public override void hit()
     {
-        _hp -= 1; // ��� �������� �޾ƿ;���
+        _hp -= 1;
 
         if(!_isKnockedBack)
         {
