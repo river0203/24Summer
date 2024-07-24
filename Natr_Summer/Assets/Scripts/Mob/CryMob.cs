@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -96,7 +97,7 @@ public class CryMob : Mob
         {
             dead(this.gameObject);
         }
-        _hp -= 1; // ÇÃ·¹ÀÌ¾îÀÇ °ø°Ý Á¤º¸¸¦ ¹Þ¾Æ¿Í¾ßÇÔ
+        _hp -= 1; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Í¾ï¿½ï¿½ï¿½
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
