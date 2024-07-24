@@ -96,7 +96,7 @@ public class Player : Mob
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            _animator.SetTrigger("Walk");
+            _animator.SetBool("Walk", true);
             _moveDir = "right";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.right;
@@ -105,7 +105,7 @@ public class Player : Mob
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            _animator.SetTrigger("Walk");
+            _animator.SetBool("Walk", true);
             _moveDir = "left";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.left;
@@ -114,6 +114,7 @@ public class Player : Mob
         }
         else
         {
+            _animator.SetBool("Walk", false);
             _moveDir = "None";
             moveSpeed = 0;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
@@ -125,31 +126,31 @@ public class Player : Mob
             _moveDir = "up";
             if (_jumpTime == 0)
             {
+                _animator.SetBool("Jump", true);
                 Vector3 pos = transform.position;
 
                 pos.y -= 0.5f;
                 pos.z = -15;
 
-                //jump effect
                 //Instantiate()
             }
 
             if (!Input.GetKey(KeyCode.C) || _jumpTime >= _jumpTimeLimit) 
             {
+                _animator.SetBool("Jump", false);
                 _isJump = false;
                 return;
             }
-
+            _animator.SetBool("Jump", false);
             _rigid.velocity = Vector2.zero;
             _rigid.AddForce(Vector2.up * _basicJumpForce * ((_jumpTime * 10) + 1f), ForceMode2D.Impulse);
             _jumpTime += Time.deltaTime;
+            
         }
         else
         {
-            
             moveSpeed = 0;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
-
         }
 
     }
