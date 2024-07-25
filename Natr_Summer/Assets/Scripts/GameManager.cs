@@ -7,13 +7,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private static GameManager gameManager = null;
+
     public GameObject[] HP = new GameObject[5];
+    public HP_animation[] hp_Ani = new HP_animation[5];
     private int HP_number = 5;
 
     public Image img_element;
     public Sprite[] element = new Sprite[5];
 
-    public HP_animation[] hp_Ani = new HP_animation[5];
+    public Image img_script;
+    public Text titleText;
+    public Text mainText;
 
     private void Awake()
     {
@@ -33,7 +37,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        img_element = GetComponent<Image>();
+       
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            if (!img_script.gameObject.activeInHierarchy)
+                img_script.gameObject.SetActive(true);
+
+            else
+                img_script.gameObject.SetActive(false);
+        }
     }
 
     public void UI_player_hp_minus(int p_hp)
@@ -44,7 +60,7 @@ public class GameManager : MonoBehaviour
             HP_number = p_hp;
 
             Debug.Log("애니메이션 출력");
-            hp_Ani[HP_number].HP_minus_animaition();
+            hp_Ani[p_hp].HP_minus_animaition();
 
             Invoke("anim_delay", 1.0f);
         }
@@ -52,7 +68,16 @@ public class GameManager : MonoBehaviour
 
     private void anim_delay()
     {
-        Debug.Log("체력 감소");
-        HP[HP_number].SetActive(false);
+        if (HP_number < 4 && HP[HP_number + 1].activeInHierarchy)
+        {
+            Debug.Log("체력 감소1");
+            HP[HP_number + 1].SetActive(false);
+        }
+
+        else
+        {
+            Debug.Log("체력 감소2");
+            HP[HP_number].SetActive(false);
+        }
     }
 }
