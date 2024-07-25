@@ -18,17 +18,17 @@ public class Player : Mob
     private float   _knockBackDuration = 0.5f;
     private float   _knockBackTimer = 0f;
     //attack
-    private float _coolTime = 0.6f;
-    private float curTime;
+    private float   _coolTime = 0.6f;
+    private float   curTime;
+
+    private bool    _gateOpen = false;
+    private bool    _isKnockedBack = false;
+    private bool    _isJump;
 
     [SerializeField]
     public GameObject bullet;
     [SerializeField]
     public Transform pos;
-
-    private bool    _isKnockedBack = false;
-    private bool    _isJump;
-
     private Vector3 mPosition;
     private Rigidbody2D _rigid;
     private Animator    _animator;
@@ -61,13 +61,13 @@ public class Player : Mob
     }
 
     public string getMoveDir() { return _moveDir; }
+    public bool getGateOpen() { return _gateOpen; }
     public override void attack()
     {
         if (curTime <= 0)
         {
             if (Input.GetKey(KeyCode.X))
             {
-                //_animator.SetTrigger("Attack");
                 Instantiate(bullet, pos.position, transform.rotation);
             }
             curTime = _coolTime;
@@ -95,7 +95,6 @@ public class Player : Mob
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            //_animator.SetTrigger("Walk");
             _moveDir = "right";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.right;
@@ -104,7 +103,6 @@ public class Player : Mob
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            //_animator.SetTrigger("Walk");
             _moveDir = "left";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.left;
