@@ -13,11 +13,14 @@ public class CryMob : Mob
     private float backMoveSpeed = 10f;
     private float followDist = 10f;
     private float attackDist = 3f;
+    private float attackTime;
+    private float attackDelayTime = 4f;
 
     private Rigidbody2D rb;
     private Transform targe;
     private Animator _mobAnimator;
     private Vector2 backPosition = new Vector2(16, 0);
+    private GameObject _weapon;
     // Start is called before the first frame update
     void Start()
     {
