@@ -12,23 +12,39 @@ public class BasicMonster : Mob
     private float   _moveSpeed = 1f;
     private float   _playerDirection;
     private float   _mobDetectionArea = 7;
+    private float   _attackTimer;
 
     private MobState    _presentMobState;
 
-    private Transform  _playerPosition;
+    private Transform   _playerPosition;
     private Rigidbody2D _rigid;
+    private GameObject  _hitBox;
 
     // Start is called before the first frame update
     private void Awake()
     {
         _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        _hitBox = GameObject.FindGameObjectWithTag("EnemyWeapon");
 
     }
 
     void Start()
     {
+        
         _rigid = GetComponent<Rigidbody2D>();   
         think();
+    }
+    private void Update()
+    {
+        if(_attackTimer > 2)
+        {
+            _hitBox.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
+        if(_playerPosition == null)
+        {
+            think();
+        }
     }
 
     // Update is called once per frame
@@ -53,8 +69,9 @@ public class BasicMonster : Mob
             _presentMobState = MobState.ATTACK;
             Vector3 _mobFollow = _playerPosition.position - this.transform.position;
             _mobFollow.Normalize();
-
             transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
+            _hitBox.GetComponent<BoxCollider2D>().enabled = true;
+            _attackTimer += Time.deltaTime;
         }
         else
         {

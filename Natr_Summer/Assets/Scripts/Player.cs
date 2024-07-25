@@ -67,7 +67,7 @@ public class Player : Mob
         {
             if (Input.GetKey(KeyCode.X))
             {
-                _animator.SetTrigger("Attack");
+                //_animator.SetTrigger("Attack");
                 Instantiate(bullet, pos.position, transform.rotation);
             }
             curTime = _coolTime;
@@ -95,7 +95,7 @@ public class Player : Mob
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            _animator.SetTrigger("Walk");
+            //_animator.SetTrigger("Walk");
             _moveDir = "right";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.right;
@@ -104,7 +104,7 @@ public class Player : Mob
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            _animator.SetTrigger("Walk");
+            //_animator.SetTrigger("Walk");
             _moveDir = "left";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.left;
@@ -158,9 +158,9 @@ public class Player : Mob
         _jumpTime = 0;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.collider.CompareTag("EnemyWeapon"))
+        if (collision.CompareTag("EnemyWeapon"))
         {
             Debug.Log("Player : Hit\n");
             Debug.Log($"{_hp}");

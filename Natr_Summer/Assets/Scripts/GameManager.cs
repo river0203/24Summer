@@ -7,6 +7,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager gameManager = null;
+    private GameObject _player;
+    private GameObject _gate;
 
     private void Awake()
     {
