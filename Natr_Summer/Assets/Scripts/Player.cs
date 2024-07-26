@@ -24,14 +24,15 @@ public class Player : Mob
     private bool    _gateOpen = false;
     private bool    _isKnockedBack = false;
     private bool    _isJump;
+    private bool    _interObj = true;
 
     [SerializeField]
-    public GameObject bullet;
+    public GameObject   bullet;
     [SerializeField]
-    public Transform pos;
-    private Vector3 mPosition;
+    public Transform    pos;
+    private Vector3     mPosition;
     private Rigidbody2D _rigid;
-    public Animator    _animator;
+    public Animator     _animator;
 
     void Start()
     {
@@ -156,6 +157,14 @@ public class Player : Mob
 
     }
 
+    public void Interaction()
+    {
+        if(Input.GetKey(KeyCode.Space))
+        {
+            
+        }
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         _jumpTime = 0;
@@ -178,6 +187,11 @@ public class Player : Mob
                 hit();
 
             }
+        }
+
+        if(collision.CompareTag("Gate"))
+        {
+            Debug.Log("Gate Enter");
         }
     }
 }

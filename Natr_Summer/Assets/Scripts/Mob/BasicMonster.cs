@@ -71,6 +71,7 @@ public class BasicMonster : Mob
     }
     public override void attack()
     {
+        _anim.SetBool("Walk", true);
         _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position);
 
         if(_playerPosition == null)
@@ -80,6 +81,7 @@ public class BasicMonster : Mob
 
         if(_playerDirection <= _mobDetectionArea)
         {
+            _anim.SetBool("Walk", false);
             _anim.SetTrigger("Attack");
             _presentMobState = MobState.ATTACK;
             Vector3 _mobFollow = _playerPosition.position - this.transform.position;

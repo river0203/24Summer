@@ -150,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 46942390}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1900005, y: 0.16120005, z: 0}
+  m_LocalPosition: {x: -0.68, y: 0.12, z: 0}
   m_LocalScale: {x: 1.2049153, y: 1.7376, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -291,7 +291,7 @@ Transform:
   m_GameObject: {fileID: 150260265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.892302, y: 2.3228474, z: -10.048498}
+  m_LocalPosition: {x: 15.73, y: 3.54, z: -10.048498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -472,7 +472,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 3.1, y: 4.2}
+  m_Size: {x: 2, y: 4.2}
   m_Direction: 0
 --- !u!50 &760656688
 Rigidbody2D:
@@ -774,7 +774,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.9, y: 3.6}
+  m_Size: {x: 2, y: 3.6}
   m_Direction: 0
 --- !u!50 &1047345998
 Rigidbody2D:
@@ -864,7 +864,7 @@ Transform:
   m_GameObject: {fileID: 1047345996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.93, y: -1.71, z: 0}
+  m_LocalPosition: {x: 17.82, y: -1.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -948,7 +948,7 @@ GameObject:
   - component: {fileID: 2131255866}
   m_Layer: 0
   m_Name: Gate
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
