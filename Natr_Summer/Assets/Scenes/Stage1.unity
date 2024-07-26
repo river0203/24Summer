@@ -438,6 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 5945393618774926201, guid: 2622937d80a59764c9a64bf5fd3142dc, type: 3}
   pos: {fileID: 760656690}
+  _animator: {fileID: 0}
 --- !u!70 &760656687
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -732,6 +733,7 @@ GameObject:
   - component: {fileID: 1047345998}
   - component: {fileID: 1047345997}
   - component: {fileID: 1047346001}
+  - component: {fileID: 1047346002}
   m_Layer: 6
   m_Name: cry_IDLE_1
   m_TagString: Enemy
@@ -881,6 +883,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76534348c9804704e91e5c148e1312a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1047346002
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047345996}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85aaf368b9614004a9e12d6f7084ddda, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1917963549
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +929,7 @@ Transform:
   m_GameObject: {fileID: 1917963549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.01, y: -0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -922,7 +945,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2131255865}
   - component: {fileID: 2131255864}
-  - component: {fileID: 2131255867}
   - component: {fileID: 2131255866}
   m_Layer: 0
   m_Name: Gate
@@ -1033,33 +1055,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.0000001, y: 2}
   m_Direction: 0
---- !u!50 &2131255867
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131255862}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Damage
+  m_Name: cry_damage
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 5ec3b593e28d8ca40b806e66209d0410, type: 3}
+      value: {fileID: 21300000, guid: 69e1b9b12b452344c87e96080955159c, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 874e06e65e5de9e4e830c6a405409f23, type: 3}
+      value: {fileID: 21300000, guid: 73607e243712b8848926bf9432f96043, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 5ec3b593e28d8ca40b806e66209d0410, type: 3}
-    - {fileID: 21300000, guid: 874e06e65e5de9e4e830c6a405409f23, type: 3}
+    - {fileID: 21300000, guid: 69e1b9b12b452344c87e96080955159c, type: 3}
+    - {fileID: 21300000, guid: 73607e243712b8848926bf9432f96043, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

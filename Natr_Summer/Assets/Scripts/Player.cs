@@ -31,7 +31,7 @@ public class Player : Mob
     public Transform pos;
     private Vector3 mPosition;
     private Rigidbody2D _rigid;
-    private Animator    _animator;
+    public Animator    _animator;
 
     void Start()
     {
@@ -62,12 +62,14 @@ public class Player : Mob
 
     public string getMoveDir() { return _moveDir; }
     public bool getGateOpen() { return _gateOpen; }
+    public bool getIsJump() { return _isJump; }
     public override void attack()
     {
         if (curTime <= 0)
         {
             if (Input.GetKey(KeyCode.X))
             {
+                _animator.SetTrigger("Attack");
                 Instantiate(bullet, pos.position, transform.rotation);
             }
             curTime = _coolTime;
@@ -95,6 +97,7 @@ public class Player : Mob
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
+            _animator.SetBool("Walk", true);
             _moveDir = "right";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.right;
@@ -103,6 +106,7 @@ public class Player : Mob
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
+            _animator.SetBool("Walk", true);
             _moveDir = "left";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.left;
@@ -111,6 +115,7 @@ public class Player : Mob
         }
         else
         {
+            _animator.SetBool("Walk", false);
             _moveDir = "None";
             moveSpeed = 0;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
@@ -122,6 +127,7 @@ public class Player : Mob
             _moveDir = "up";
             if (_jumpTime == 0)
             {
+                _animator.SetTrigger("Jump");
                 Vector3 pos = transform.position;
 
                 pos.y -= 0.5f;
@@ -136,7 +142,6 @@ public class Player : Mob
                 _isJump = false;
                 return;
             }
-
             _rigid.velocity = Vector2.zero;
             _rigid.AddForce(Vector2.up * _basicJumpForce * ((_jumpTime * 10) + 1f), ForceMode2D.Impulse);
             _jumpTime += Time.deltaTime;
@@ -156,7 +161,7 @@ public class Player : Mob
         _jumpTime = 0;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyWeapon"))
         {
@@ -165,6 +170,7 @@ public class Player : Mob
 
             if (_hp <= 0)
             {
+                _animator.SetTrigger("Death");
                 dead(this.gameObject);
             }
             else

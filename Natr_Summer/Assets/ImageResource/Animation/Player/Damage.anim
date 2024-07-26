@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CRY_DAMAGE
+  m_Name: Damage
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 5e817e324d1beec488987e5ea1c09899, type: 3}
+      value: {fileID: 21300000, guid: 5ec3b593e28d8ca40b806e66209d0410, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 331a8f3c52c3df94c8ff7dc341ca2882, type: 3}
+      value: {fileID: 21300000, guid: 874e06e65e5de9e4e830c6a405409f23, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 5e817e324d1beec488987e5ea1c09899, type: 3}
-    - {fileID: 21300000, guid: 331a8f3c52c3df94c8ff7dc341ca2882, type: 3}
+    - {fileID: 21300000, guid: 5ec3b593e28d8ca40b806e66209d0410, type: 3}
+    - {fileID: 21300000, guid: 874e06e65e5de9e4e830c6a405409f23, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -58,7 +58,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0

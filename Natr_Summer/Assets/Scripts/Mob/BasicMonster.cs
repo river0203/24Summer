@@ -11,7 +11,7 @@ public class BasicMonster : Mob
     private float   _hp = 2;
     private float   _moveSpeed = 1f;
     private float   _playerDirection;
-    private float   _mobDetectionArea = 7;
+    private float   _mobDetectionArea = 10;
     private float   _attackTimer;
 
     private MobState    _presentMobState;
@@ -19,10 +19,12 @@ public class BasicMonster : Mob
     private Transform   _playerPosition;
     private Rigidbody2D _rigid;
     private GameObject  _hitBox;
+    private Animator    _anim;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        _anim = GetComponent<Animator>();
         _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
         _hitBox = GameObject.FindGameObjectWithTag("EnemyWeapon");
 
@@ -30,7 +32,6 @@ public class BasicMonster : Mob
 
     void Start()
     {
-        
         _rigid = GetComponent<Rigidbody2D>();   
         think();
     }
@@ -58,14 +59,28 @@ public class BasicMonster : Mob
         {
             move();
         }
-        attack();
+        if (_playerPosition == null)
+        {
+            think();
+        }
+        else
+        {
+            attack();
+        }
+       
     }
     public override void attack()
     {
         _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position);
 
+        if(_playerPosition == null)
+        {
+            think();
+        }
+
         if(_playerDirection <= _mobDetectionArea)
         {
+            _anim.SetTrigger("Attack");
             _presentMobState = MobState.ATTACK;
             Vector3 _mobFollow = _playerPosition.position - this.transform.position;
             _mobFollow.Normalize();
@@ -89,6 +104,7 @@ public class BasicMonster : Mob
     }
     public override void move()
     {
+        _anim.SetBool("Walk", true);
         _nextMoveDir = think();
         _rigid.velocity = new Vector2(_nextMoveDir, _rigid.velocity.y * _moveSpeed);
     }
