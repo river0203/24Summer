@@ -100,6 +100,7 @@ public class BasicMonster : Mob
         Debug.Log("Mob : Hit");
         if(_hp <= 0 )
         {
+            _hitBox.GetComponent<BoxCollider2D>().enabled = false;
             dead(this.gameObject);
         }
         _hp -= 1; // 플레이어의 공격 정보를 받아와야함
