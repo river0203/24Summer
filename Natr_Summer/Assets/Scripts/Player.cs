@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Mob
 {
-    private int     _hp = 2;
+    private int     _hp = 4;
     private string  _moveDir;
     //move
     private float   _attackRange = 10f; 
@@ -33,6 +33,9 @@ public class Player : Mob
     private Vector3     mPosition;
     private Rigidbody2D _rigid;
     public Animator     _animator;
+
+    [SerializeField]
+    private GameManager _gameManager;
 
     void Start()
     {
@@ -82,7 +85,7 @@ public class Player : Mob
     {
         _hp -= 1; // 상대 데미지를 받아와야함
 
-        if(!_isKnockedBack)
+        if (!_isKnockedBack)
         {
             _rigid.velocity = Vector2.zero;
             _rigid.AddForce(mPosition.normalized * _knockBackForce, ForceMode2D.Impulse);
@@ -90,6 +93,8 @@ public class Player : Mob
             _isKnockedBack = true;
             _knockBackTimer = _knockBackDuration;
         }
+
+       _gameManager.UI_player_hp_minus(_hp + 1);
     }
     public override void move()
     {
