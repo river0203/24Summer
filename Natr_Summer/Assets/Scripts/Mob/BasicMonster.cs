@@ -95,6 +95,10 @@ public class BasicMonster : Mob
             _presentMobState = MobState.RUN;
         }
     }
+    public void AttackAble()
+    {
+
+    }
     public override void hit()
     {
         Debug.Log("Mob : Hit");
