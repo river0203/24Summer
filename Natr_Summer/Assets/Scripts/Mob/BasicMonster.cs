@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BasicMonster : Mob
 {
+    public int spawnCont;
+    public GameObject manaBall;
+
     private int     _nextMoveDir = 1;
     private int     _beforeMoveDir;
     private float   _thintTime = 0f;
@@ -51,10 +54,6 @@ public class BasicMonster : Mob
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(_hp <= 0)
-        {
-            dead(this.gameObject);
-        }
         if(_presentMobState != MobState.ATTACK)
         {
             move();
@@ -101,9 +100,11 @@ public class BasicMonster : Mob
     }
     public override void hit()
     {
+        //dropItem();
         Debug.Log("Mob : Hit");
         if(_hp <= 0 )
         {
+            StartCoroutine(DropItem());
             _hitBox.GetComponent<BoxCollider2D>().enabled = false;
             dead(this.gameObject);
         }
@@ -128,9 +129,15 @@ public class BasicMonster : Mob
         return _nextMoveDir;
     }
 
-    public void dropItem()
+    IEnumerator DropItem()
     {
+        // mana +10
+        for (int i = 0; i < spawnCont; i++)
+        {
+            Instantiate(manaBall, transform.position, transform.rotation);
+        }
 
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

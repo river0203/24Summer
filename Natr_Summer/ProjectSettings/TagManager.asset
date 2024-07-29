@@ -8,6 +8,7 @@ TagManager:
   - PlayerWeapon
   - Enemy
   - Gate
+  - DropItem
   layers:
   - Default
   - TransparentFX

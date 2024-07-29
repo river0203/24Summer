@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Mob
 {
-    private int     _hp = 4;
+    private int     _maxHp = 4;
+    private int     _currentHp;
+    private int     _maxMana = 100;
+    private int     _currentMana = 0;
     private string  _moveDir;
     //move
     private float   _attackRange = 10f; 
     private float   _basicSpeed = 8;
     //jump
-    private float   _basicJumpForce = 8;
+    private float   _basicJumpForce = 4;
     private float   _jumpTime = 0f;
     private float   _jumpTimeLimit = 0.1f;
     //knock back
@@ -39,6 +43,7 @@ public class Player : Mob
 
     void Start()
     {
+        _currentHp = _maxHp;
         _rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
     }
@@ -83,18 +88,18 @@ public class Player : Mob
     }
     public override void hit()
     {
-        _hp -= 1; // 상대 데미지를 받아와야함
+        _currentHp -= 1; // 상대 데미지를 받아와야함
 
-        if (!_isKnockedBack)
+        /*if (!_isKnockedBack)
         {
             _rigid.velocity = Vector2.zero;
             _rigid.AddForce(mPosition.normalized * _knockBackForce, ForceMode2D.Impulse);
 
             _isKnockedBack = true;
             _knockBackTimer = _knockBackDuration;
-        }
+        }*/
 
-       _gameManager.UI_player_hp_minus(_hp + 1);
+       _gameManager.UI_player_hp_minus(_currentHp - 1);
     }
     public override void move()
     {
@@ -169,6 +174,14 @@ public class Player : Mob
             
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("DropItem"))
+        {
+            Debug.Log($"current Mana : {_currentMana}");
+            _currentMana += 10;
+        }
+    }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -177,12 +190,20 @@ public class Player : Mob
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.CompareTag("Gate"))
+        {
+            Debug.Log("Gate Enter");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
         if (collision.CompareTag("EnemyWeapon"))
         {
             Debug.Log("Player : Hit\n");
-            Debug.Log($"{_hp}");
+            Debug.Log($"{_currentHp}");
 
-            if (_hp <= 0)
+            if (_currentHp <= 0)
             {
                 _animator.SetTrigger("Death");
                 dead(this.gameObject);
@@ -192,11 +213,6 @@ public class Player : Mob
                 hit();
 
             }
-        }
-
-        if(collision.CompareTag("Gate"))
-        {
-            Debug.Log("Gate Enter");
         }
     }
 }
