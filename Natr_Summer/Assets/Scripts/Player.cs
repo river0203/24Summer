@@ -178,8 +178,8 @@ public class Player : Mob
     {
         if(collision.collider.CompareTag("DropItem"))
         {
-            Debug.Log($"current Mana : {_currentMana}");
             _currentMana += 10;
+            Debug.Log($"current Mana : {_currentMana}");
         }
     }
 
