@@ -152,7 +152,6 @@ public class BasicMonster : Mob
         {
             Instantiate(manaBall, transform.position, transform.rotation);
         }
-
         yield return null;
     }
 
