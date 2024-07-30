@@ -40,11 +40,6 @@ public class BasicMonster : Mob
     }
     private void Update()
     {
-        if(_attackTimer > 2)
-        {
-            _hitBox.GetComponent<BoxCollider2D>().enabled = false;
-        }
-
         if(_playerPosition == null)
         {
             think();
@@ -70,7 +65,7 @@ public class BasicMonster : Mob
     }
     public override void attack()
     {
-        _anim.SetBool("Walk", true);
+        _anim.SetBool("Walk", false);
         _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position);
 
         if(_playerPosition == null)
@@ -80,14 +75,14 @@ public class BasicMonster : Mob
 
         if(_playerDirection <= _mobDetectionArea)
         {
-            _anim.SetBool("Walk", false);
-            _anim.SetTrigger("Attack");
             _presentMobState = MobState.ATTACK;
             Vector3 _mobFollow = _playerPosition.position - this.transform.position;
             _mobFollow.Normalize();
             transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
-            _hitBox.GetComponent<BoxCollider2D>().enabled = true;
-            _attackTimer += Time.deltaTime;
+            if (_playerDirection <= 3)
+            {
+                _anim.SetTrigger("Attack");
+            }
         }
         else
         {
@@ -96,7 +91,28 @@ public class BasicMonster : Mob
     }
     public void AttackAble()
     {
+        _hitBox.GetComponent<BoxCollider2D>().enabled = true;
+       // _anim.SetBool("Attack", true);
+    }
 
+    public void AttackEnable()
+    {
+        _hitBox.GetComponent<BoxCollider2D>().enabled = false;
+    }
+    public void ExitAttack()
+    {
+        _anim.ResetTrigger("Attack");
+        DelayTimer();
+        _anim.SetBool("Walk", true);
+    }
+    public IEnumerator DelayTimer()
+    {
+        _attackTimer += Time.deltaTime;
+        if(_attackTimer > 2)
+        {
+            yield return null;
+
+        }
     }
     public override void hit()
     {

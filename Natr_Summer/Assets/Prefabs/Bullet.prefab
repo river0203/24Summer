@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5620301088197009186}
   - component: {fileID: 9045911190351098811}
   - component: {fileID: 1100843176437897783}
-  - component: {fileID: 7455098538832109444}
+  - component: {fileID: 1722063164285882761}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: PlayerWeapon
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0b7751beb2447374f83a08e420b76c16, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ec0a85329a598f4e8c196dce110a159, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 0.9, y: 0.35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -149,7 +149,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &7455098538832109444
+--- !u!114 &1722063164285882761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,6 +158,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5945393618774926201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc0e5df006f2ba43b2146957c6556a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2397c63e471db7740af798290d82d13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

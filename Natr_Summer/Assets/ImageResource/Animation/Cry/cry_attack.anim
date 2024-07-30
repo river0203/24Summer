@@ -21,23 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 180daa3f3572c3445885959634de8f59, type: 3}
+      value: {fileID: 21300000, guid: 73d4cc2d46b9bc84194414c8fa010ae7, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 339dec49993c49c439a665cff9476f70, type: 3}
+      value: {fileID: 21300000, guid: b4a303e406a815442a98054e38f67743, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: fff5ef4a4640f354d9360c7e254c9f1d, type: 3}
+      value: {fileID: 21300000, guid: af21c56ae98a8484ba125202c7be976a, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: a40074211b8b5114096214ff99047595, type: 3}
+      value: {fileID: 21300000, guid: 6a03a815f35105341b380c53ebf53edf, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 66ded0acf399a75449ca7ce42a5240a3, type: 3}
+      value: {fileID: 21300000, guid: 846d41ee1fa96924ead2273bd8ad004b, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: 74c04b1e5907e464c887fcf2fda70400, type: 3}
+      value: {fileID: 21300000, guid: 1db3d4a0bf8299a49981b5657cf96cba, type: 3}
     - time: 0.5
-      value: {fileID: 21300000, guid: 111a4c45c5f3af242a1fe2917d9a4787, type: 3}
+      value: {fileID: 21300000, guid: 7935190b9cf7a8546adee7f22f050238, type: 3}
     - time: 0.5833333
-      value: {fileID: 21300000, guid: 9c7c5ec0d83ac004dbf9af0941ae3c1a, type: 3}
+      value: {fileID: 21300000, guid: ab1b3a84a8af7cf4b83450be99a958d9, type: 3}
     - time: 0.6666667
-      value: {fileID: 21300000, guid: 3f3190e829a0b3c4c872689e81388ee3, type: 3}
+      value: {fileID: 21300000, guid: 59c4a0bd25a8f4f40af11b18f1223056, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -60,15 +60,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 180daa3f3572c3445885959634de8f59, type: 3}
-    - {fileID: 21300000, guid: 339dec49993c49c439a665cff9476f70, type: 3}
-    - {fileID: 21300000, guid: fff5ef4a4640f354d9360c7e254c9f1d, type: 3}
-    - {fileID: 21300000, guid: a40074211b8b5114096214ff99047595, type: 3}
-    - {fileID: 21300000, guid: 66ded0acf399a75449ca7ce42a5240a3, type: 3}
-    - {fileID: 21300000, guid: 74c04b1e5907e464c887fcf2fda70400, type: 3}
-    - {fileID: 21300000, guid: 111a4c45c5f3af242a1fe2917d9a4787, type: 3}
-    - {fileID: 21300000, guid: 9c7c5ec0d83ac004dbf9af0941ae3c1a, type: 3}
-    - {fileID: 21300000, guid: 3f3190e829a0b3c4c872689e81388ee3, type: 3}
+    - {fileID: 21300000, guid: 73d4cc2d46b9bc84194414c8fa010ae7, type: 3}
+    - {fileID: 21300000, guid: b4a303e406a815442a98054e38f67743, type: 3}
+    - {fileID: 21300000, guid: af21c56ae98a8484ba125202c7be976a, type: 3}
+    - {fileID: 21300000, guid: 6a03a815f35105341b380c53ebf53edf, type: 3}
+    - {fileID: 21300000, guid: 846d41ee1fa96924ead2273bd8ad004b, type: 3}
+    - {fileID: 21300000, guid: 1db3d4a0bf8299a49981b5657cf96cba, type: 3}
+    - {fileID: 21300000, guid: 7935190b9cf7a8546adee7f22f050238, type: 3}
+    - {fileID: 21300000, guid: ab1b3a84a8af7cf4b83450be99a958d9, type: 3}
+    - {fileID: 21300000, guid: 59c4a0bd25a8f4f40af11b18f1223056, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -94,10 +94,24 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16666667
+  - time: 0.25
     functionName: AttackAble
     data: 
-    objectReferenceParameter: {fileID: 1316149353484430735, guid: f831dca3a4df5cf468fb7110ca9c6efd, type: 3}
+    objectReferenceParameter: {fileID: 1316149353484430735, guid: 87c6e7e03ff9c8041a89ffe84d40a5b4, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
+    functionName: AttackEnable
+    data: 
+    objectReferenceParameter: {fileID: 1316149353484430735, guid: 87c6e7e03ff9c8041a89ffe84d40a5b4, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: ExitAttack
+    data: 
+    objectReferenceParameter: {fileID: 1316149353484430735, guid: 87c6e7e03ff9c8041a89ffe84d40a5b4, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

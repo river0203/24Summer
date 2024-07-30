@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4812799549498054283}
   - component: {fileID: 529877723680035168}
-  - component: {fileID: 7453905869876780046}
   - component: {fileID: 1652295468820450764}
   - component: {fileID: 2524877162686627423}
+  - component: {fileID: 7591010864896876636}
   m_Layer: 0
   m_Name: ManaBall
   m_TagString: DropItem
@@ -87,18 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7453905869876780046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6361247231119873357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a69a33451f43e948a8ed5de16014b6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1652295468820450764
 Rigidbody2D:
   serializedVersion: 4
@@ -161,3 +149,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &7591010864896876636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361247231119873357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662d66a1dc1a6c448b3a28f562271e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

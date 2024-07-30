@@ -72,6 +72,15 @@ public class Player : Mob
     public string getMoveDir() { return _moveDir; }
     public bool getGateOpen() { return _gateOpen; }
     public bool getIsJump() { return _isJump; }
+    /*public IEnumerator DelayTimer()
+    {
+        _attackTimer += Time.deltaTime;
+        if (_attackTimer > 2)
+        {
+            yield return null;
+
+        }
+    }*/
     public override void attack()
     {
         if (curTime <= 0)
@@ -89,6 +98,7 @@ public class Player : Mob
     public override void hit()
     {
         _currentHp -= 1; // 상대 데미지를 받아와야함
+        _animator.SetTrigger("Damage");
 
         /*if (!_isKnockedBack)
         {
@@ -99,7 +109,7 @@ public class Player : Mob
             _knockBackTimer = _knockBackDuration;
         }*/
 
-       _gameManager.UI_player_hp_minus(_currentHp - 1);
+        _gameManager.UI_player_hp_minus(_currentHp - 1);
     }
     public override void move()
     {
@@ -166,13 +176,16 @@ public class Player : Mob
         }
 
     }
-
     public void Interaction()
     {
         if(Input.GetKey(KeyCode.Space))
         {
             
         }
+    }
+    public void DeadAnim()
+    {
+        dead(this.gameObject);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -206,7 +219,6 @@ public class Player : Mob
             if (_currentHp <= 0)
             {
                 _animator.SetTrigger("Death");
-                dead(this.gameObject);
             }
             else
             {
