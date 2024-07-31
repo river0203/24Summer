@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private static GameManager gameManager = null;
-    private GameObject _player;
-    private GameObject _gate;
 
     public GameObject[] HP = new GameObject[5];
     public HP_animation[] hp_Ani = new HP_animation[5];
@@ -17,9 +15,13 @@ public class GameManager : MonoBehaviour
     public Image img_element;
     public Sprite[] element = new Sprite[5];
 
-    public Image img_script;
+    public GameObject img_script;
     public Text titleText;
-    public Text mainText;
+    public Text contentText;
+
+    //[SerializeField]
+    //private DialogueManager dialogue;
+    //private int currentLineIndex = 0;
 
     private void Awake()
     {
@@ -39,20 +41,40 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-       
+        //dialogue = GetComponent<DialogueManager>();
+
+        img_script.SetActive(false);
+        //StartCoroutine(StartDialogue());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            if (!img_script.gameObject.activeInHierarchy)
-                img_script.gameObject.SetActive(true);
 
-            else
-                img_script.gameObject.SetActive(false);
-        }
     }
+
+    //IEnumerator StartDialogue()
+    //{
+    //    yield return new WaitForSeconds(1f);
+
+    //    img_script.SetActive(true);
+
+    //    while (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) != null) //수정 필요
+    //    {
+    //        titleText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3); //수정 필요
+    //        Debug.Log("get title text");
+    //        contentText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 4); //수정 필요
+    //        Debug.Log("get content text");
+
+    //        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
+    //        if (Input.GetKeyDown(KeyCode.Space))
+    //            currentLineIndex++;
+    //    }
+
+    //    if (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) == null)
+    //        img_script.SetActive(false);
+
+    //}
 
     public void UI_player_hp_minus(int p_hp)
     {
@@ -72,13 +94,13 @@ public class GameManager : MonoBehaviour
     {
         if (HP_number < 4 && HP[HP_number + 1].activeInHierarchy)
         {
-            Debug.Log("체력 감소1");
+            Debug.Log("체력 감소 - 배열 + 1이 비활성화 되지 않음");
             HP[HP_number + 1].SetActive(false);
         }
 
         else
         {
-            Debug.Log("체력 감소2");
+            Debug.Log("체력 감소");
             HP[HP_number].SetActive(false);
         }
     }
