@@ -109,7 +109,7 @@ public class Player : Mob
             _knockBackTimer = _knockBackDuration;
         }*/
 
-        _gameManager.UI_player_hp_minus(_currentHp - 1);
+        _gameManager.UI_player_hp_minus(_currentHp);
     }
     public override void move()
     {
