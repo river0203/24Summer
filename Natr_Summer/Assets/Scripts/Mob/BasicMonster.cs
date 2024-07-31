@@ -129,6 +129,7 @@ public class BasicMonster : Mob
     }
     public void ExitDamage()
     {
+        _anim.ResetTrigger("Damage");
         _anim.SetBool("Walk", true);
     }
     public void Dead()
