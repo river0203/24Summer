@@ -58,26 +58,22 @@ public class GameManager : MonoBehaviour
 
         img_script.SetActive(true);
 
-        if (dialogue != null)
+        while (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) != null) //수정 필요
         {
-            Debug.Log("dialogue not null");
-           
-            while (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) != null)
-            {
-                titleText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3); //수정 필요
-                Debug.Log("get title text");
-                contentText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 4); //수정 필요
-                Debug.Log("get content text");
+            titleText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3); //수정 필요
+            Debug.Log("get title text");
+            contentText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 4); //수정 필요
+            Debug.Log("get content text");
 
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
-                if(Input.GetKeyDown(KeyCode.Space))
-                    currentLineIndex++;
-            }
-
-            if (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) == null)
-                img_script.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.Space))
+                currentLineIndex++;
         }
+
+        if (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) == null)
+            img_script.SetActive(false);
+
     }
 
     public void UI_player_hp_minus(int p_hp)
