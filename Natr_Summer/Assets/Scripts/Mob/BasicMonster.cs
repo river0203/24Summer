@@ -40,7 +40,8 @@ public class BasicMonster : Mob
     }
     private void Update()
     {
-        if(_playerPosition == null)
+
+        if (_playerPosition == null)
         {
             think();
         }
@@ -116,15 +117,23 @@ public class BasicMonster : Mob
     }
     public override void hit()
     {
-        //dropItem();
-        Debug.Log("Mob : Hit");
-        if(_hp <= 0 )
+        //Debug.Log("Mob : Hit");
+        _hp -= 1;
+        _anim.SetTrigger("Damage");
+        if (_hp <= 0)
         {
             StartCoroutine(DropItem());
             _hitBox.GetComponent<BoxCollider2D>().enabled = false;
-            dead(this.gameObject);
+            _anim.SetTrigger("Death");
         }
-        _hp -= 1; // 플레이어의 공격 정보를 받아와야함
+    }
+    public void ExitDamage()
+    {
+        _anim.SetBool("Walk", true);
+    }
+    public void Dead()
+    {
+        dead(this.gameObject);
     }
     public override void move()
     {

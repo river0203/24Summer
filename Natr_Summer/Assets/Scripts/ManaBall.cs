@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ManaBall : MonoBehaviour
 {
-    private float launchPower = 10f;
+    private float launchPower = 2f;
     private float dir;
     private Rigidbody2D _rb;
     // Start is called before the first frame update
