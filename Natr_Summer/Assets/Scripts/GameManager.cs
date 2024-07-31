@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
     public Text titleText;
     public Text contentText;
 
-    [SerializeField]
-    private DialogueManager dialogue;
-    private int currentLineIndex = 0;
+    //[SerializeField]
+    //private DialogueManager dialogue;
+    //private int currentLineIndex = 0;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         //dialogue = GetComponent<DialogueManager>();
 
         img_script.SetActive(false);
-        StartCoroutine(StartDialogue());
+        //StartCoroutine(StartDialogue());
     }
 
     private void Update()
@@ -52,29 +52,29 @@ public class GameManager : MonoBehaviour
 
     }
 
-    IEnumerator StartDialogue()
-    {
-        yield return new WaitForSeconds(1f);
+    //IEnumerator StartDialogue()
+    //{
+    //    yield return new WaitForSeconds(1f);
 
-        img_script.SetActive(true);
+    //    img_script.SetActive(true);
 
-        while (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) != null) //수정 필요
-        {
-            titleText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3); //수정 필요
-            Debug.Log("get title text");
-            contentText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 4); //수정 필요
-            Debug.Log("get content text");
+    //    while (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) != null) //수정 필요
+    //    {
+    //        titleText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3); //수정 필요
+    //        Debug.Log("get title text");
+    //        contentText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 4); //수정 필요
+    //        Debug.Log("get content text");
 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+    //        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
-            if (Input.GetKeyDown(KeyCode.Space))
-                currentLineIndex++;
-        }
+    //        if (Input.GetKeyDown(KeyCode.Space))
+    //            currentLineIndex++;
+    //    }
 
-        if (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) == null)
-            img_script.SetActive(false);
+    //    if (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) == null)
+    //        img_script.SetActive(false);
 
-    }
+    //}
 
     public void UI_player_hp_minus(int p_hp)
     {
