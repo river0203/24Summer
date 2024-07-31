@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BasicMonster : Mob
 {
+    public int spawnCont;
+    public GameObject manaBall;
+
     private int     _nextMoveDir = 1;
     private int     _beforeMoveDir;
     private float   _thintTime = 0f;
@@ -11,17 +14,22 @@ public class BasicMonster : Mob
     private float   _hp = 2;
     private float   _moveSpeed = 1f;
     private float   _playerDirection;
-    private float   _mobDetectionArea = 7;
+    private float   _mobDetectionArea = 10;
+    private float   _attackTimer;
 
     private MobState    _presentMobState;
 
-    private Transform  _playerPosition;
+    private Transform   _playerPosition;
     private Rigidbody2D _rigid;
+    private GameObject  _hitBox;
+    private Animator    _anim;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        _anim = GetComponent<Animator>();
         _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        _hitBox = GameObject.FindGameObjectWithTag("EnemyWeapon");
 
     }
 
@@ -30,48 +38,107 @@ public class BasicMonster : Mob
         _rigid = GetComponent<Rigidbody2D>();   
         think();
     }
+    private void Update()
+    {
+
+        if (_playerPosition == null)
+        {
+            think();
+        }
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(_hp <= 0)
-        {
-            dead(this.gameObject);
-        }
         if(_presentMobState != MobState.ATTACK)
         {
             move();
         }
-        attack();
+        if (_playerPosition == null)
+        {
+            think();
+        }
+        else
+        {
+            attack();
+        }
+       
     }
     public override void attack()
     {
+        _anim.SetBool("Walk", false);
         _playerDirection = Vector3.Distance(this.transform.position, _playerPosition.transform.position);
+
+        if(_playerPosition == null)
+        {
+            think();
+        }
 
         if(_playerDirection <= _mobDetectionArea)
         {
             _presentMobState = MobState.ATTACK;
             Vector3 _mobFollow = _playerPosition.position - this.transform.position;
             _mobFollow.Normalize();
-
             transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
+            if (_playerDirection <= 3)
+            {
+                _anim.SetTrigger("Attack");
+            }
         }
         else
         {
             _presentMobState = MobState.RUN;
         }
     }
+    public void AttackAble()
+    {
+        _hitBox.GetComponent<BoxCollider2D>().enabled = true;
+       // _anim.SetBool("Attack", true);
+    }
+
+    public void AttackEnable()
+    {
+        _hitBox.GetComponent<BoxCollider2D>().enabled = false;
+    }
+    public void ExitAttack()
+    {
+        _anim.ResetTrigger("Attack");
+        DelayTimer();
+        _anim.SetBool("Walk", true);
+    }
+    public IEnumerator DelayTimer()
+    {
+        _attackTimer += Time.deltaTime;
+        if(_attackTimer > 2)
+        {
+            yield return null;
+
+        }
+    }
     public override void hit()
     {
-        Debug.Log("Mob : Hit");
-        if(_hp <= 0 )
+        //Debug.Log("Mob : Hit");
+        _hp -= 1;
+        _anim.SetTrigger("Damage");
+        if (_hp <= 0)
         {
-            dead(this.gameObject);
+            StartCoroutine(DropItem());
+            _hitBox.GetComponent<BoxCollider2D>().enabled = false;
+            _anim.SetTrigger("Death");
         }
-        _hp -= 1; // 플레이어의 공격 정보를 받아와야함
+    }
+    public void ExitDamage()
+    {
+        _anim.ResetTrigger("Damage");
+        _anim.SetBool("Walk", true);
+    }
+    public void Dead()
+    {
+        dead(this.gameObject);
     }
     public override void move()
     {
+        _anim.SetBool("Walk", true);
         _nextMoveDir = think();
         _rigid.velocity = new Vector2(_nextMoveDir, _rigid.velocity.y * _moveSpeed);
     }
@@ -88,9 +155,14 @@ public class BasicMonster : Mob
         return _nextMoveDir;
     }
 
-    public void dropItem()
+    IEnumerator DropItem()
     {
-
+        // mana +10
+        for (int i = 0; i < spawnCont; i++)
+        {
+            Instantiate(manaBall, transform.position, transform.rotation);
+        }
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Mob
 {
-    private int     _hp = 4;
+    private int     _maxHp = 4;
+    private int     _currentHp;
+    private int     _maxMana = 100;
+    private int     _currentMana = 0;
     private string  _moveDir;
     //move
     private float   _attackRange = 10f; 
     private float   _basicSpeed = 8;
     //jump
-    private float   _basicJumpForce = 8;
+    private float   _basicJumpForce = 4;
     private float   _jumpTime = 0f;
     private float   _jumpTimeLimit = 0.1f;
     //knock back
@@ -19,26 +22,28 @@ public class Player : Mob
     private float   _knockBackDuration = 0.5f;
     private float   _knockBackTimer = 0f;
     //attack
-    private float _coolTime = 0.6f;
-    private float curTime;
+    private float   _coolTime = 0.6f;
+    private float   curTime;
 
-    [SerializeField]
-    public GameObject bullet;
-    [SerializeField]
-    public Transform pos;
-
+    private bool    _gateOpen = false;
     private bool    _isKnockedBack = false;
     private bool    _isJump;
+    private bool    _interObj = true;
 
-    private Vector3 mPosition;
+    [SerializeField]
+    public GameObject   bullet;
+    [SerializeField]
+    public Transform    pos;
+    private Vector3     mPosition;
     private Rigidbody2D _rigid;
-    private Animator    _animator;
+    public Animator     _animator;
 
     [SerializeField]
     private GameManager _gameManager;
 
     void Start()
     {
+        _currentHp = _maxHp;
         _rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
     }
@@ -65,6 +70,17 @@ public class Player : Mob
     }
 
     public string getMoveDir() { return _moveDir; }
+    public bool getGateOpen() { return _gateOpen; }
+    public bool getIsJump() { return _isJump; }
+    /*public IEnumerator DelayTimer()
+    {
+        _attackTimer += Time.deltaTime;
+        if (_attackTimer > 2)
+        {
+            yield return null;
+
+        }
+    }*/
     public override void attack()
     {
         if (curTime <= 0)
@@ -81,18 +97,19 @@ public class Player : Mob
     }
     public override void hit()
     {
-        _hp -= 1; // 상대 데미지를 받아와야함
+        _currentHp -= 1; // 상대 데미지를 받아와야함
+        _animator.SetTrigger("Damage");
 
-        if (!_isKnockedBack)
+        /*if (!_isKnockedBack)
         {
             _rigid.velocity = Vector2.zero;
             _rigid.AddForce(mPosition.normalized * _knockBackForce, ForceMode2D.Impulse);
 
             _isKnockedBack = true;
             _knockBackTimer = _knockBackDuration;
-        }
+        }*/
 
-       _gameManager.UI_player_hp_minus(_hp + 1);
+        _gameManager.UI_player_hp_minus(_currentHp - 1);
     }
     public override void move()
     {
@@ -101,7 +118,7 @@ public class Player : Mob
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            _animator.SetTrigger("Walk");
+            _animator.SetBool("Walk", true);
             _moveDir = "right";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.right;
@@ -110,7 +127,7 @@ public class Player : Mob
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            _animator.SetTrigger("Walk");
+            _animator.SetBool("Walk", true);
             _moveDir = "left";
             moveSpeed = _basicSpeed;
             mPosition += Vector3.left;
@@ -119,6 +136,7 @@ public class Player : Mob
         }
         else
         {
+            _animator.SetBool("Walk", false);
             _moveDir = "None";
             moveSpeed = 0;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
@@ -130,6 +148,7 @@ public class Player : Mob
             _moveDir = "up";
             if (_jumpTime == 0)
             {
+                _animator.SetTrigger("Jump");
                 Vector3 pos = transform.position;
 
                 pos.y -= 0.5f;
@@ -144,7 +163,6 @@ public class Player : Mob
                 _isJump = false;
                 return;
             }
-
             _rigid.velocity = Vector2.zero;
             _rigid.AddForce(Vector2.up * _basicJumpForce * ((_jumpTime * 10) + 1f), ForceMode2D.Impulse);
             _jumpTime += Time.deltaTime;
@@ -158,22 +176,49 @@ public class Player : Mob
         }
 
     }
+    public void Interaction()
+    {
+        if(Input.GetKey(KeyCode.Space))
+        {
+            
+        }
+    }
+    public void DeadAnim()
+    {
+        dead(this.gameObject);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("DropItem"))
+        {
+            _currentMana += 10;
+            Debug.Log($"current Mana : {_currentMana}");
+        }
+    }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         _jumpTime = 0;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.collider.CompareTag("EnemyWeapon"))
+        if(collision.CompareTag("Gate"))
+        {
+            Debug.Log("Gate Enter");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("EnemyWeapon"))
         {
             Debug.Log("Player : Hit\n");
-            Debug.Log($"{_hp}");
+            Debug.Log($"{_currentHp}");
 
-            if (_hp <= 0)
+            if (_currentHp <= 0)
             {
-                dead(this.gameObject);
+                _animator.SetTrigger("Death");
             }
             else
             {
