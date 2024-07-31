@@ -32,22 +32,22 @@ public class CameraController : MonoBehaviour
             switch (_playerDir)
             {
                 case "up":
-                    _dirNumY = 0;
+                    _dirNumY = 3;
                     break;
 
                 case "left":
                     _dirNumX = -5;
-                    _dirNumY = 2;
+                    _dirNumY = 3;
                     break;
 
                 case "right":
                     _dirNumX = 5;
-                    _dirNumY = 2;
+                    _dirNumY = 3;
                     break;
 
                 case "None":
                     _dirNumX = 0;
-                    _dirNumY = 2;
+                    _dirNumY = 3;
                     break;
             }
 
