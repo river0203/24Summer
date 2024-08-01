@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player : Mob
 {
-    private int     _maxHp = 4;
+    private int     _maxHp = 5;
     private int     _currentHp;
     private int     _maxMana = 100;
     private int     _currentMana = 0;
@@ -109,7 +109,7 @@ public class Player : Mob
             _knockBackTimer = _knockBackDuration;
         }*/
 
-        _gameManager.UI_player_hp_minus(_currentHp - 1);
+        _gameManager.UI_player_hp_minus(_currentHp);
     }
     public override void move()
     {

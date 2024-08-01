@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] HP = new GameObject[5];
     public HP_animation[] hp_Ani = new HP_animation[5];
-    private int HP_number = 5;
+    private int HP_number = 4;
 
     public Image img_element;
     public Sprite[] element = new Sprite[5];
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             HP_number = p_hp;
 
             Debug.Log("애니메이션 출력");
-            hp_Ani[p_hp].HP_minus_animaition();
+            hp_Ani[HP_number + 1].HP_minus_animaition();
 
             Invoke("anim_delay", 1.0f);
         }
@@ -92,16 +92,13 @@ public class GameManager : MonoBehaviour
 
     private void anim_delay()
     {
-        if (HP_number < 4 && HP[HP_number + 1].activeInHierarchy)
-        {
-            Debug.Log("체력 감소 - 배열 + 1이 비활성화 되지 않음");
-            HP[HP_number + 1].SetActive(false);
-        }
+        //if (HP_number < 4 && HP[HP_number + 1].activeInHierarchy)
+        //{
+        //    Debug.Log("체력 감소 - 배열 + 1이 비활성화 되지 않음");
+        //    HP[HP_number + 1].SetActive(false);
+        //}
 
-        else
-        {
-            Debug.Log("체력 감소");
-            HP[HP_number].SetActive(false);
-        }
+        Debug.Log("체력 감소");
+        HP[HP_number + 1].SetActive(false);
     }
 }

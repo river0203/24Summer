@@ -20,13 +20,6 @@ public class ManaBall : MonoBehaviour
 
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     public void Fire()
     {
         dir = UnityEngine.Random.Range(-2, 2);
