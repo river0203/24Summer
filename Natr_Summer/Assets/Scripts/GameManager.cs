@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum SceneState
+{
+    INTRO, STAGE1, BOSS
+}
+
 //씬이 이동해도 유지해야할 항목, 골드, hp, 아이템 etc
 public class GameManager : MonoBehaviour
 {
@@ -19,9 +24,11 @@ public class GameManager : MonoBehaviour
     public Text titleText;
     public Text contentText;
 
-    //[SerializeField]
-    //private DialogueManager dialogue;
-    //private int currentLineIndex = 0;
+    [SerializeField]
+    private DialogueManager dialogue;
+    private int currentLineIndex = 0;
+    private int eventNumber = 0;
+    private int currentScene;
 
     private void Awake()
     {
@@ -41,10 +48,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //dialogue = GetComponent<DialogueManager>();
+        currentScene = (int)SceneState.INTRO;
+        dialogue.readCSV(SceneState.INTRO);
 
         img_script.SetActive(false);
-        //StartCoroutine(StartDialogue());
     }
 
     private void Update()
@@ -52,30 +59,32 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //IEnumerator StartDialogue()
-    //{
-    //    yield return new WaitForSeconds(1f);
+    public IEnumerator StartDialogue()
+    {
+        yield return new WaitForSeconds(1f);
 
-    //    img_script.SetActive(true);
+        img_script.SetActive(true);
 
-    //    while (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) != null) //수정 필요
-    //    {
-    //        titleText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3); //수정 필요
-    //        Debug.Log("get title text");
-    //        contentText.text = dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 4); //수정 필요
-    //        Debug.Log("get content text");
+        while (dialogue.DialogueToString(currentLineIndex, eventNumber, 4) != null)
+        {
+            titleText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 3);
+            Debug.Log("get title text " + currentLineIndex);
+            contentText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 4);
+            Debug.Log("get content text " + currentLineIndex);
 
-    //        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
-    //        if (Input.GetKeyDown(KeyCode.Space))
-    //            currentLineIndex++;
-    //    }
+            if (Input.GetKeyDown(KeyCode.Space))
+                currentLineIndex++;
+        }
 
-    //    if (dialogue.DialogueToString(currentLineIndex, 0, SceneState.Intro, 3) == null)
-    //        img_script.SetActive(false);
-
-    //}
-
+        if (dialogue.DialogueToString(currentLineIndex, eventNumber, 3) == null)
+        {
+            eventNumber++;
+            img_script.SetActive(false);
+        }
+    }
+     
     public void UI_player_hp_minus(int p_hp)
     {
         //HP 감소가 1인 경우

@@ -6,9 +6,13 @@ public class interaction : MonoBehaviour
 {
     [SerializeField]
     private GameObject _interaction;
+    [SerializeField]
+    private GameManager _gm;
 
     private void Start()
     {
+        //_gm = GetComponent<GameManager>();
+
         _interaction.SetActive(false);
     }
 
@@ -18,7 +22,7 @@ public class interaction : MonoBehaviour
         {
            if (Input.GetKeyDown(KeyCode.Space))
             {
-
+                StartCoroutine(_gm.StartDialogue());
             }
         }
 
