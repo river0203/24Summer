@@ -18,6 +18,7 @@ public class TigerBoss : Mob
     [SerializeField]
     private float   _moveSpeed = 5f;
     private float   _skillCoolTime;
+    private float   _playerDirection;
     private bool    _pase2 = false;
     
     private Transform   _targetPos;
@@ -39,23 +40,34 @@ public class TigerBoss : Mob
         {
             _pase2 = true;
         }
+        move();
     }
     private void FixedUpdate()
     {
-        if(_pase2 == false)
+        think();
+    }
+    public void think()
+    {
+        if (_pase2 == false)
         {
             _pase1SkillSelectRandom = Random.Range(1, 4);
         }
-        else if(_pase2 == true)
+        else if (_pase2 == true)
         {
             _pase2SkillSelectRandom = Random.Range(1, 5);
         }
     }
     public override void move()
     {
+        _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
         Vector3 _mobFollow = _targetPos.position - this.transform.position;
         _mobFollow.Normalize();
         transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
+
+        if(_playerDirection <= 3)
+        { 
+            attack();
+        }
     }
     public override void attack()
     {
@@ -70,12 +82,15 @@ public class TigerBoss : Mob
             {
                 case 1:
                     //skill 1
+                    StartCoroutine(TailAttack());
                     break;
                 case 2:
                     //skill 2
+                    StartCoroutine(JumpAttack());
                     break;
                 case 3:
                     //skill 3
+                    StartCoroutine(DashAttack());
                     break;
                 default:
                     break;
@@ -87,15 +102,19 @@ public class TigerBoss : Mob
             {
                 case 1:
                     //skill 2
+                    StartCoroutine(JumpAttack());
                     break;
                 case 2:
                     //skill 3
+                    StartCoroutine(DashAttack());
                     break;
                 case 3:
                     //skill 4
+                    StartCoroutine(BarkAttack());
                     break;
                 case 4:
                     //skill 5
+                    StartCoroutine(Envasion());
                     break;
                 default:
                     break;
@@ -103,14 +122,36 @@ public class TigerBoss : Mob
         }
 
     }
-    public void AttackAble()
-    {
-        _hitBox.GetComponent<BoxCollider2D>().enabled = true;
-    }
 
-    public void AttackEnable()
+    IEnumerator TailAttack()
     {
-        _hitBox.GetComponent<BoxCollider2D>().enabled = false;
+        Debug.Log("TailAttack");
+        yield return null;
+        attack();
+    }
+    IEnumerator JumpAttack()
+    {
+        Debug.Log("JumpAttack");
+        yield return new WaitForSeconds(8*Time.deltaTime);
+        attack();
+    }
+    IEnumerator DashAttack()
+    {
+        Debug.Log("DashAttack");
+        yield return new WaitForSeconds(8 * Time.deltaTime);
+        attack();
+    }
+    IEnumerator BarkAttack()
+    {
+        Debug.Log("BarkAttack");
+        yield return new WaitForSeconds(8 * Time.deltaTime);
+        attack();
+    }
+    IEnumerator Envasion()
+    {
+        Debug.Log("Envasion");
+        yield return new WaitForSeconds(8 * Time.deltaTime);
+        attack();
     }
     public override void hit()
     {
