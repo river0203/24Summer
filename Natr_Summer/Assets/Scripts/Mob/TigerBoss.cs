@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TigerBoss : Mob
 {
@@ -14,6 +15,8 @@ public class TigerBoss : Mob
     private float   _pase1SkillSelectRandom;
     [SerializeField]
     private float   _pase2SkillSelectRandom;
+    [SerializeField]
+    private float   _moveSpeed = 5f;
     private float   _skillCoolTime;
     private bool    _pase2 = false;
     
@@ -50,7 +53,9 @@ public class TigerBoss : Mob
     }
     public override void move()
     {
-
+        Vector3 _mobFollow = _targetPos.position - this.transform.position;
+        _mobFollow.Normalize();
+        transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
     }
     public override void attack()
     {
