@@ -36,12 +36,12 @@ public class CameraController : MonoBehaviour
                     break;
 
                 case "left":
-                    _dirNumX = -5;
+                    _dirNumX = -3;
                     _dirNumY = 3;
                     break;
 
                 case "right":
-                    _dirNumX = 5;
+                    _dirNumX = 3;
                     _dirNumY = 3;
                     break;
 

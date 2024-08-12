@@ -12,15 +12,20 @@ public class DialogueManager : Singleton
     protected DialogueManager() { }
 
     private List<Dictionary<string, object>> data_DialogCustomer = null;
-    //private List<Dictionary<string, object>> data_DialogOwner = null;
+    public int count_data;
 
     private enum Type
     {
         Number,
         CustomerID,
-        State,
         Title,
-        Content
+        Content,
+        dialoguetype
+    }
+
+    public enum dialogueType
+    {
+        text, select, end
     }
 
     public void readCSV(SceneState state)
@@ -39,6 +44,8 @@ public class DialogueManager : Singleton
                 data_DialogCustomer = CSVreader.Read("scripts_boss");
                 break;
         }
+
+        count_data = data_DialogCustomer.Count;
     }
     public string DialogueToString(int number, int customerID, int type)
     {
@@ -62,10 +69,29 @@ public class DialogueManager : Singleton
 
             else if (type == (int)Type.Content)
                 temp = (string)data_DialogCustomer[number][Type.Content.ToString()];
+
+            else
+                temp = (string)data_DialogCustomer[number][Type.dialoguetype.ToString()];
         }
 
         else
             return null;
+
+        return temp;
+    }
+
+    public string checkDialogueType(int number)
+    {
+        string temp = null;
+
+        if ((string)data_DialogCustomer[number][Type.dialoguetype.ToString()] == "text")
+            temp = "text";
+
+        else if ((string)data_DialogCustomer[number][Type.dialoguetype.ToString()] == "select")
+            temp = "select";
+
+        else
+            temp = "end";
 
         return temp;
     }
@@ -76,14 +102,10 @@ public class DialogueManager : Singleton
         {
             if ((int)data_DialogCustomer[i][Type.CustomerID.ToString()] == id)
             {
-                return i;
+                return id;
             }
         }
 
         return -1;
     }
 }
-
-// 한 번 갈아 엎자...
-// Scene 정보 읽어와서 > CSV 파일 어떤 거 읽을지 판정
-// customerID에 event number를 읽어와 그 파트만 출력 가능하게 변경

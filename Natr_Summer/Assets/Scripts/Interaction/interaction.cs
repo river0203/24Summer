@@ -9,25 +9,36 @@ public class interaction : MonoBehaviour
     [SerializeField]
     private GameManager _gm;
 
+    public bool _isCoroutine = false;
+
     private void Start()
     {
-        //_gm = GetComponent<GameManager>();
-
         _interaction.SetActive(false);
     }
 
     private void Update()
     {
-        if (_interaction.activeInHierarchy)
+        if (!_isCoroutine)
         {
-           if (Input.GetKeyDown(KeyCode.Space))
+            if (_interaction.activeInHierarchy)
             {
-                StartCoroutine(_gm.StartDialogue());
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    StartCoroutine(_gm.StartDialogue());
+
+                    _isCoroutine = true;
+                }
             }
         }
 
-        //인터렉션이 활성화 되어 있을 때 space를 누르면 스크립트 출력
-        //버튼 클릭 시 다음 씬으로 이동
+       else
+        {
+            if (_gm.img_script.activeInHierarchy == false)
+            {
+                StopCoroutine(_gm.StartDialogue());
+                _isCoroutine = false;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -23,12 +23,16 @@ public class GameManager : MonoBehaviour
     public GameObject img_script;
     public Text titleText;
     public Text contentText;
+    public Button selectButton1;
+    public Button selectButton2;
 
     [SerializeField]
     private DialogueManager dialogue;
     private int currentLineIndex = 0;
     private int eventNumber = 0;
     private int currentScene;
+
+    private changeScene scene;
 
     private void Awake()
     {
@@ -37,6 +41,7 @@ public class GameManager : MonoBehaviour
             gameManager = this;
             DontDestroyOnLoad(gameObject);
         }
+
         else
         {
             if(gameManager != this)
@@ -48,15 +53,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        scene = new changeScene();
+
         currentScene = (int)SceneState.INTRO;
-        dialogue.readCSV(SceneState.INTRO);
+        //scene.changescene((SceneState)currentScene);
+
+        dialogue.readCSV((SceneState)currentScene);
 
         img_script.SetActive(false);
     }
 
     private void Update()
     {
-
     }
 
     public IEnumerator StartDialogue()
@@ -67,24 +75,72 @@ public class GameManager : MonoBehaviour
 
         while (dialogue.DialogueToString(currentLineIndex, eventNumber, 4) != null)
         {
-            titleText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 3);
-            Debug.Log("get title text " + currentLineIndex);
-            contentText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 4);
-            Debug.Log("get content text " + currentLineIndex);
+            string type;
+
+            type = dialogue.checkDialogueType(currentLineIndex);
+
+            if (type == "text")
+            {
+                contentText.gameObject.SetActive(true);
+                selectButton1.gameObject.SetActive(false);
+                selectButton2.gameObject.SetActive(false);
+
+                titleText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 2);
+                contentText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 3);
+            }
+
+            else if (type == "select")
+            {
+                contentText.gameObject.SetActive(false);
+                selectButton1.gameObject.SetActive(true);
+                selectButton2.gameObject.SetActive(true);
+
+                titleText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 2);
+            }
+
+            else
+            {
+                img_script.SetActive(false);
+                
+                currentLineIndex++;
+                eventNumber++;
+
+                yield break;
+            }
 
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
             if (Input.GetKeyDown(KeyCode.Space))
+            {
                 currentLineIndex++;
-        }
-
-        if (dialogue.DialogueToString(currentLineIndex, eventNumber, 3) == null)
-        {
-            eventNumber++;
-            img_script.SetActive(false);
+            }
         }
     }
-     
+
+    public bool currentDialogue()
+    {
+        if (!img_script.activeInHierarchy)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool endDialogue()
+    {
+        if (currentLineIndex >= dialogue.count_data)
+            return true;
+
+        return false;
+    }
+
+    public void sceneChange()
+    {
+        currentScene++;
+        scene.changescene((SceneState)currentScene);
+    }
+
     public void UI_player_hp_minus(int p_hp)
     {
         //HP 감소가 1인 경우
@@ -110,4 +166,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("체력 감소");
         HP[HP_number + 1].SetActive(false);
     }
+
 }
