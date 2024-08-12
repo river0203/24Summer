@@ -21,23 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 73d4cc2d46b9bc84194414c8fa010ae7, type: 3}
+      value: {fileID: 21300000, guid: c5adb0668b0bb794c96764192f67f32e, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: b4a303e406a815442a98054e38f67743, type: 3}
+      value: {fileID: 21300000, guid: ce9245a79cf7f694d8a18a1db2bb1671, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: af21c56ae98a8484ba125202c7be976a, type: 3}
+      value: {fileID: 21300000, guid: 86469d5f68b4a9d48aa6df541824512c, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: 6a03a815f35105341b380c53ebf53edf, type: 3}
+      value: {fileID: 21300000, guid: 957cdc196beb3db448fef969fc5a0bbc, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 846d41ee1fa96924ead2273bd8ad004b, type: 3}
+      value: {fileID: 21300000, guid: 6f00ed99eb50a324d8032aa66a0b54ba, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: 1db3d4a0bf8299a49981b5657cf96cba, type: 3}
+      value: {fileID: 21300000, guid: 1132611399a344240911d879f2be47cc, type: 3}
     - time: 0.5
-      value: {fileID: 21300000, guid: 7935190b9cf7a8546adee7f22f050238, type: 3}
+      value: {fileID: 21300000, guid: 2ddb31e759f0f2947b9029c1836f724f, type: 3}
     - time: 0.5833333
-      value: {fileID: 21300000, guid: ab1b3a84a8af7cf4b83450be99a958d9, type: 3}
+      value: {fileID: 21300000, guid: 9c88e5dc55afcaa4a9d178eb41504710, type: 3}
     - time: 0.6666667
-      value: {fileID: 21300000, guid: 59c4a0bd25a8f4f40af11b18f1223056, type: 3}
+      value: {fileID: 21300000, guid: 697bdfe89d519da4ebb7b7c033b60220, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -60,15 +60,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 73d4cc2d46b9bc84194414c8fa010ae7, type: 3}
-    - {fileID: 21300000, guid: b4a303e406a815442a98054e38f67743, type: 3}
-    - {fileID: 21300000, guid: af21c56ae98a8484ba125202c7be976a, type: 3}
-    - {fileID: 21300000, guid: 6a03a815f35105341b380c53ebf53edf, type: 3}
-    - {fileID: 21300000, guid: 846d41ee1fa96924ead2273bd8ad004b, type: 3}
-    - {fileID: 21300000, guid: 1db3d4a0bf8299a49981b5657cf96cba, type: 3}
-    - {fileID: 21300000, guid: 7935190b9cf7a8546adee7f22f050238, type: 3}
-    - {fileID: 21300000, guid: ab1b3a84a8af7cf4b83450be99a958d9, type: 3}
-    - {fileID: 21300000, guid: 59c4a0bd25a8f4f40af11b18f1223056, type: 3}
+    - {fileID: 21300000, guid: c5adb0668b0bb794c96764192f67f32e, type: 3}
+    - {fileID: 21300000, guid: ce9245a79cf7f694d8a18a1db2bb1671, type: 3}
+    - {fileID: 21300000, guid: 86469d5f68b4a9d48aa6df541824512c, type: 3}
+    - {fileID: 21300000, guid: 957cdc196beb3db448fef969fc5a0bbc, type: 3}
+    - {fileID: 21300000, guid: 6f00ed99eb50a324d8032aa66a0b54ba, type: 3}
+    - {fileID: 21300000, guid: 1132611399a344240911d879f2be47cc, type: 3}
+    - {fileID: 21300000, guid: 2ddb31e759f0f2947b9029c1836f724f, type: 3}
+    - {fileID: 21300000, guid: 9c88e5dc55afcaa4a9d178eb41504710, type: 3}
+    - {fileID: 21300000, guid: 697bdfe89d519da4ebb7b7c033b60220, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -93,25 +93,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.25
-    functionName: AttackAble
-    data: 
-    objectReferenceParameter: {fileID: 1316149353484430735, guid: 87c6e7e03ff9c8041a89ffe84d40a5b4, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.41666666
-    functionName: AttackEnable
-    data: 
-    objectReferenceParameter: {fileID: 1316149353484430735, guid: 87c6e7e03ff9c8041a89ffe84d40a5b4, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.5
-    functionName: ExitAttack
-    data: 
-    objectReferenceParameter: {fileID: 1316149353484430735, guid: 87c6e7e03ff9c8041a89ffe84d40a5b4, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

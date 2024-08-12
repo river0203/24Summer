@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 6a0c8da8cef19a54694d69b1a956e94e, type: 3}
+      value: {fileID: 21300000, guid: 02e3c0339062ee6419498686da14d4b8, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: c28ae6b2ee2e1984392d66ca15dc6f29, type: 3}
+      value: {fileID: 21300000, guid: 87519e9637b0c1b429632b004d466c58, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 6a0c8da8cef19a54694d69b1a956e94e, type: 3}
-    - {fileID: 21300000, guid: c28ae6b2ee2e1984392d66ca15dc6f29, type: 3}
+    - {fileID: 21300000, guid: 02e3c0339062ee6419498686da14d4b8, type: 3}
+    - {fileID: 21300000, guid: 87519e9637b0c1b429632b004d466c58, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -72,11 +72,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.083333336
-    functionName: ExitDamage
-    data: 
-    objectReferenceParameter: {fileID: 1316149353484430735, guid: 87c6e7e03ff9c8041a89ffe84d40a5b4, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

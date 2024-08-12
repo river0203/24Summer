@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     private DialogueManager dialogue;
     private int currentLineIndex = 0;
     private int eventNumber = 0;
-    private int currentScene;
+
+    private int currentScene = (int)SceneState.INTRO;
 
     private changeScene scene;
 
@@ -54,9 +55,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         scene = new changeScene();
-
-        currentScene = (int)SceneState.INTRO;
-        //scene.changescene((SceneState)currentScene);
 
         dialogue.readCSV((SceneState)currentScene);
 
