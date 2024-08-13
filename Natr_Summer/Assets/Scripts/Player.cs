@@ -12,7 +12,7 @@ public class Player : Mob
     private string  _moveDir;
     //move
     private float   _attackRange = 10f; 
-    private float   _basicSpeed = 8;
+    private float   _basicSpeed = 5;
     //jump
     private float   _basicJumpForce = 4;
     private float   _jumpTime = 0f;
@@ -31,12 +31,13 @@ public class Player : Mob
     private bool    _interObj = true;
 
     [SerializeField]
-    public GameObject   bullet;
+    public GameObject    bullet;
     [SerializeField]
-    public Transform    pos;
-    private Vector3     mPosition;
-    private Rigidbody2D _rigid;
-    public Animator     _animator;
+    public Transform        pos;
+    private Vector3         mPosition;
+    private Rigidbody2D     _rigid;
+    public Animator         _animator;
+    private SpriteRenderer  _spriteRenderer;
 
     [SerializeField]
     private GameManager _gameManager;
@@ -46,6 +47,7 @@ public class Player : Mob
         _currentHp = _maxHp;
         _rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -66,7 +68,6 @@ public class Player : Mob
     {
         move();
         attack();
-
     }
 
     public string getMoveDir() { return _moveDir; }
@@ -88,7 +89,8 @@ public class Player : Mob
             if (Input.GetKey(KeyCode.X))
             {
                 _animator.SetTrigger("Attack");
-                Instantiate(bullet, pos.position, transform.rotation);
+
+                Instantiate(bullet, pos.position, this.transform.rotation);
             }
             curTime = _coolTime;
 
@@ -123,7 +125,7 @@ public class Player : Mob
             moveSpeed = _basicSpeed;
             mPosition += Vector3.right;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
-
+            _spriteRenderer.flipX = false;
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -132,12 +134,12 @@ public class Player : Mob
             moveSpeed = _basicSpeed;
             mPosition += Vector3.left;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
-
+            _spriteRenderer.flipX = true;
         }
         else
         {
             _animator.SetBool("Walk", false);
-            _moveDir = "None";
+            //_moveDir = "None";
             moveSpeed = 0;
             transform.position += mPosition * moveSpeed * Time.deltaTime;
 
@@ -211,6 +213,8 @@ public class Player : Mob
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        Debug.Log("player onTriggerEnter");
+
         if (collision.CompareTag("EnemyWeapon"))
         {
             Debug.Log("Player : Hit\n");

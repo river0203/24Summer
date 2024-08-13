@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 529877723680035168}
   - component: {fileID: 1652295468820450764}
   - component: {fileID: 2524877162686627423}
-  - component: {fileID: 7591010864896876636}
+  - component: {fileID: 7420490580202829731}
   m_Layer: 0
   m_Name: ManaBall
   m_TagString: DropItem
@@ -149,7 +149,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &7591010864896876636
+--- !u!114 &7420490580202829731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,6 +158,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6361247231119873357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 662d66a1dc1a6c448b3a28f562271e84, type: 3}
+  m_Script: {fileID: 11500000, guid: 437b2ed77c4e44d4885d35ed7a4e02eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

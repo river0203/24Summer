@@ -7,7 +7,7 @@ public class TigerBoss : Mob
 {
     private float   _hp;
     [SerializeField]
-    private float   _maxHp = 100f;
+    private float   _maxHp = 15f;
     [SerializeField]
     private float   _getDamage = 2f;
     private float   _attackRange;
@@ -36,7 +36,7 @@ public class TigerBoss : Mob
     // Update is called once per frame
     void Update()
     {
-        if(_hp <= 30f)
+        if(_hp <= 5f)
         {
             _pase2 = true;
         }

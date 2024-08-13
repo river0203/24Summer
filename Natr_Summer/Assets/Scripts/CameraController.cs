@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
-    private float   cameraSpeed = 10.0f;
+    [SerializeField]
+    private float   cameraSpeed = 2.2f;
     [SerializeField]
     private GameObject  player;
     private Player      _strDir;
@@ -51,8 +51,10 @@ public class CameraController : MonoBehaviour
                     break;
             }
 
+            
             Vector3 dir = player.transform.position - this.transform.position;
             Vector3 moveVector = new Vector3((dir.x + _dirNumX) * cameraSpeed * Time.deltaTime, (dir.y + _dirNumY) * cameraSpeed * Time.deltaTime, 0.0f);
+            
             this.transform.Translate(moveVector);
         }
     }

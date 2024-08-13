@@ -125,6 +125,7 @@ public class BasicMonster : Mob
             StartCoroutine(DropItem());
             _hitBox.GetComponent<BoxCollider2D>().enabled = false;
             _anim.SetTrigger("Death");
+            Invoke("Dead", 0.7f);
         }
     }
     public void ExitDamage()
@@ -167,6 +168,8 @@ public class BasicMonster : Mob
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("monster onTriggerEnter");
+
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Mob : Attack");
