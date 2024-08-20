@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,8 +61,6 @@ public class DialoguePrint : MonoBehaviour
                 selectButton2.gameObject.SetActive(true);
 
                 titleText.text = dialogue.DialogueToString(currentLineIndex, eventNumber, 2);
-
-                eventNumber++;
             }
 
             else
@@ -105,5 +104,8 @@ public class DialoguePrint : MonoBehaviour
     {
         eventNumber++;
         currentLineIndex++;
+
+        currentScene = scene.getcurrentScene();
+        scene.changescene((SceneState)currentScene + 1);
     }
 }

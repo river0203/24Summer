@@ -8,7 +8,6 @@ public class changeScene : MonoBehaviour
     Scene scene;
     public int currentScene = 0;
 
-
     public int getcurrentScene()
     {
         scene = SceneManager.GetActiveScene();
@@ -39,7 +38,7 @@ public class changeScene : MonoBehaviour
                 break;
 
             case SceneState.BOSS:
-                //SceneManager.LoadScene("Boss");
+                SceneManager.LoadScene("BossRoom");
                 break;
 
             default:

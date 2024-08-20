@@ -12,17 +12,18 @@ public enum SceneState
 public class GameManager : MonoBehaviour
 {
     private static GameManager gameManager = null;
+    private Player _player;
 
-    public GameObject[] HP = new GameObject[5];
-    public HP_animation[] hp_Ani = new HP_animation[5];
-    private int HP_number = 4;
+    private bool isPause          = false;
+    private bool gameloop         = true;
+    private int _maxHp            = 5;
+    private int _playercurrentHP  = 5;
+    private int currentScene;
 
-    public Image img_element;
-    public Sprite[] element = new Sprite[5];
+    private changeScene _scene;
 
-    public int currentScene = (int)SceneState.INTRO;
-
-    private changeScene scene;
+    public int get_playercurrentHP() { return _playercurrentHP; }
+    public bool get_gameloop() { return gameloop; }
 
     private void Awake()
     {
@@ -43,43 +44,34 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        scene = new changeScene();
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        _scene = new changeScene();
+
+        gameloop = true;
+        currentScene = _scene.getcurrentScene();
+        //_playercurrentHP = _maxHp;
     }
 
     private void Update()
     {
-    }
-
-    public void sceneChange()
-    {
-        currentScene++;
-        scene.changescene((SceneState)currentScene);
-    }
-
-    public void UI_player_hp_minus(int p_hp)
-    {
-        //HP 감소가 1인 경우
-        if (HP_number - p_hp == 1)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            HP_number = p_hp;
+            if (isPause)
+            {
+                isPause = false;
+                Time.timeScale = 0.0f;
+            }
 
-            Debug.Log("애니메이션 출력");
-            hp_Ani[HP_number + 1].HP_minus_animaition();
-
-            Invoke("anim_delay", 1.0f);
+            else
+            {
+                isPause = true;
+                Time.timeScale = 1.0f;
+            }
         }
+
+        _playercurrentHP = _player.getplayerhp();
+
+        if (_playercurrentHP <= 1)
+            gameloop = false;
     }
-
-    private void anim_delay()
-    {
-        //if (HP_number < 4 && HP[HP_number + 1].activeInHierarchy)
-        //{
-        //    Debug.Log("체력 감소 - 배열 + 1이 비활성화 되지 않음");
-        //    HP[HP_number + 1].SetActive(false);
-        //}
-
-        Debug.Log("체력 감소");
-        HP[HP_number + 1].SetActive(false);
-    }
-
 }

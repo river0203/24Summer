@@ -13,6 +13,7 @@ TagManager:
   - BossWeapon_tail
   - BossWeapon_jump
   - BossWeapon_dash
+  - HP
   layers:
   - Default
   - TransparentFX

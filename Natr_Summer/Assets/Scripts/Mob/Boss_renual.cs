@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Boss_renual : Mob
 {
-    private float    _hp;
-    private float    _maxhp = 15;
+    private float _hp;
+    private float _maxhp = 15;
 
-    private float    _moveSpeed = 5f;
-    private float   _dashSpeed = 10f;
-    private float   _playerDirection;
+    private float _moveSpeed = 5f;
+    private float _dashSpeed = 10f;
+    private float _playerDirection;
 
     [SerializeField]
-    private int     _SkillSelcetRandom;
-    private float   _skillCooltime = 0.0f;
-    private float   _skillcurrenttime = 0.0f;
-    private float   _waittime = 0.0f;
-    private BOSSSTATE   _bossstate;
-    private Transform   _targetPos;
+    private int _SkillSelcetRandom;
+    private float _skillCooltime = 3.0f;
+    private float _skillcurrenttime = 0.0f;
+    private float _waittime = 0.0f;
+    private BOSSSTATE _bossstate;
+    private Transform _targetPos;
     private Rigidbody2D _rb;
-    private GameObject  _hitBox_tail;
-    private GameObject  _hitBox_jump;
-    private GameObject  _hitBox_dash;
-    private Animator    _animator;
+    private GameObject _hitBox_tail;
+    private GameObject _hitBox_jump;
+    private GameObject _hitBox_dash;
+    private Animator _animator;
 
     enum BOSSSTATE
     {
@@ -39,11 +39,14 @@ public class Boss_renual : Mob
         _hitBox_dash = GameObject.FindGameObjectWithTag("BossWeapon_dash");
         _hp = _maxhp;
 
-        _bossstate = BOSSSTATE.MOVE;
+        _bossstate = BOSSSTATE.IDLE;
     }
 
     private void Update()
     {
+        if (_bossstate == BOSSSTATE.DEATH)
+            return;
+
         _skillcurrenttime += Time.deltaTime;
 
         if (_skillcurrenttime >= _skillCooltime)
@@ -51,15 +54,20 @@ public class Boss_renual : Mob
             think();
         }
 
-        if(_bossstate == BOSSSTATE.MOVE)
+        if (_bossstate == BOSSSTATE.MOVE)
         {
             move();
+        }
+
+        else
+        {
+            _animator.SetBool("isMove", false);
         }
     }
 
     private void think()
     {
-        _skillCooltime     = Random.Range(3, 4);
+        _skillCooltime = Random.Range(4, 6);
         _SkillSelcetRandom = Random.Range(0, 6);
 
         _skillcurrenttime = 0;
@@ -179,13 +187,21 @@ public class Boss_renual : Mob
 
         _animator.SetTrigger("jumpReady");
 
-        this.transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(3, 15, 0), 0.2f);
+        if (transform.rotation.y == 0)
+        {
+            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(3, -15, 0), 0.2f);
+        }
+
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(3, 15, 0), 0.2f);
+        }
 
         yield return new WaitForSeconds(0.2f);
 
         _animator.SetTrigger("jumpAttack");
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
 
         _bossstate = BOSSSTATE.MOVE;
 
@@ -197,7 +213,8 @@ public class Boss_renual : Mob
 
         if (_hp <= 0)
         {
-            death();   
+            _bossstate = BOSSSTATE.DEATH;
+            death();
         }
     }
 
@@ -208,10 +225,19 @@ public class Boss_renual : Mob
         _hitBox_tail.GetComponent<BoxCollider2D>().enabled = false;
         _hitBox_jump.GetComponent<BoxCollider2D>().enabled = false;
         _hitBox_dash.GetComponent<BoxCollider2D>().enabled = false;
-    }    
+
+        Invoke("DeadAnim", 1f);
+    }
+
+    private void DeadAnim()
+    {
+        dead(this.gameObject);
+    }
 
     public override void move()
     {
+        _animator.SetBool("isMove", true);
+
         _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
         Vector3 _mobFollow = _targetPos.position - this.transform.position;
         _mobFollow.Normalize();
@@ -222,7 +248,7 @@ public class Boss_renual : Mob
         else if (_mobFollow.x < 0)
             transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        if (_playerDirection >= 3.8f)
+        if (_playerDirection >= 3.5f)
         {
             transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
         }

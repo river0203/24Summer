@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Player : Mob
 {
-    private int     _maxHp = 4;
     private int     _currentHp;
     private int     _maxMana = 100;
     private int     _currentMana = 0;
@@ -39,15 +38,21 @@ public class Player : Mob
     public Animator         _animator;
     private SpriteRenderer  _spriteRenderer;
 
-    [SerializeField]
     private GameManager _gameManager;
+    private changeScene _changeScene;
+
+    [SerializeField]
+    private HP_UI       _UI_HP;
 
     void Start()
     {
-        _currentHp = _maxHp;
+        _changeScene = new changeScene();
+        _gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        _currentHp = _gameManager.get_playercurrentHP();
         _rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -73,6 +78,8 @@ public class Player : Mob
     public string getMoveDir() { return _moveDir; }
     public bool getGateOpen() { return _gateOpen; }
     public bool getIsJump() { return _isJump; }
+
+    public int getplayerhp() { return _currentHp; }
     /*public IEnumerator DelayTimer()
     {
         _attackTimer += Time.deltaTime;
@@ -102,16 +109,16 @@ public class Player : Mob
         _currentHp -= 1; // 상대 데미지를 받아와야함
         _animator.SetTrigger("Damage");
 
-        /*if (!_isKnockedBack)
+        if (!_isKnockedBack)
         {
             _rigid.velocity = Vector2.zero;
             _rigid.AddForce(mPosition.normalized * _knockBackForce, ForceMode2D.Impulse);
 
             _isKnockedBack = true;
             _knockBackTimer = _knockBackDuration;
-        }*/
+        }
 
-        _gameManager.UI_player_hp_minus(_currentHp);
+        _UI_HP.UI_player_hp_minus(_currentHp);
     }
     public override void move()
     {
@@ -178,17 +185,15 @@ public class Player : Mob
         }
 
     }
-    public void Interaction()
-    {
-        if(Input.GetKey(KeyCode.Space))
-        {
-            
-        }
-    }
+
     public void DeadAnim()
     {
         dead(this.gameObject);
+        int currentScene = _changeScene.getcurrentScene();
+
+        _changeScene.changescene((SceneState)currentScene);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.CompareTag("DropItem"))
@@ -220,7 +225,7 @@ public class Player : Mob
             Debug.Log("Player : Hit\n");
             Debug.Log($"{_currentHp}");
 
-            if (_currentHp <= 0)
+            if (_currentHp <= 1)
             {
                 _animator.SetTrigger("Death");
                 Invoke("DeadAnim", 1f);
