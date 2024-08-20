@@ -9,6 +9,10 @@ TagManager:
   - Enemy
   - Gate
   - DropItem
+  - GameManager
+  - BossWeapon_tail
+  - BossWeapon_jump
+  - BossWeapon_dash
   layers:
   - Default
   - TransparentFX

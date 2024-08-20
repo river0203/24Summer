@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player : Mob
 {
-    private int     _maxHp = 5;
+    private int     _maxHp = 4;
     private int     _currentHp;
     private int     _maxMana = 100;
     private int     _currentMana = 0;

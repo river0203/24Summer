@@ -5,15 +5,21 @@ using UnityEngine;
 public class StoryScript : MonoBehaviour
 {
     [SerializeField]
-    private GameManager _gm;
+    private DialoguePrint _dp;
     private IEnumerator enumerator;
     private bool _isCoroutine = false;
 
     private int eventNumber = 0;
 
+    private changeScene scene;
+    //private GameManager _gm;
+
     private void Start()
     {
-        enumerator = _gm.StartDialogue();
+        //_gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        scene = new changeScene();
+
+        enumerator = _dp.StartDialogue();
 
         if (!_isCoroutine)
         {
@@ -32,7 +38,7 @@ public class StoryScript : MonoBehaviour
 
     private void nextDialogue()
     {
-        if (_gm.currentDialogue() && eventNumber == 0)
+        if (_dp.currentDialogue() && eventNumber == 0)
         {
             _isCoroutine = false;
             eventNumber++;
@@ -40,7 +46,7 @@ public class StoryScript : MonoBehaviour
             changebackground();
         }
 
-        if (_gm.endDialogue() && eventNumber == 1)
+        if (_dp.endDialogue() && eventNumber == 1)
         {
             eventNumber++; 
             endIntro();
@@ -53,7 +59,7 @@ public class StoryScript : MonoBehaviour
         //이미지 변경 스크립트 추가
         if (!_isCoroutine)
         {
-            StartCoroutine(_gm.StartDialogue());
+            StartCoroutine(_dp.StartDialogue());
 
             _isCoroutine = true;
         }
@@ -63,6 +69,6 @@ public class StoryScript : MonoBehaviour
     {
         Debug.Log("end Intro 진입");
 
-        _gm.sceneChange();
+        scene.changescene(SceneState.STAGE1);
     }
 }

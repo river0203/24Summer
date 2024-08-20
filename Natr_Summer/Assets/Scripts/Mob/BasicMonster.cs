@@ -79,8 +79,15 @@ public class BasicMonster : Mob
             _presentMobState = MobState.ATTACK;
             Vector3 _mobFollow = _playerPosition.position - this.transform.position;
             _mobFollow.Normalize();
+
+            if (_mobFollow.x > 0)
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+
+            else if (_mobFollow.x < 0)
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+
             transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
-            if (_playerDirection <= 3)
+            if (_playerDirection <= 2.5f)
             {
                 _anim.SetTrigger("Attack");
             }
@@ -141,6 +148,13 @@ public class BasicMonster : Mob
     {
         _anim.SetBool("Walk", true);
         _nextMoveDir = think();
+
+        if (_nextMoveDir == -1)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        if (_nextMoveDir == 1)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+
         _rigid.velocity = new Vector2(_nextMoveDir, _rigid.velocity.y * _moveSpeed);
     }
     public int think()

@@ -5,6 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class changeScene : MonoBehaviour
 {
+    Scene scene;
+    public int currentScene = 0;
+
+
+    public int getcurrentScene()
+    {
+        scene = SceneManager.GetActiveScene();
+        Debug.Log(scene.name);
+
+        if (scene.name == "Intro")
+            currentScene = 0;
+
+        else if (scene.name == "Stage1")
+            currentScene = 1;
+         
+        else
+            currentScene = 2;
+
+        return currentScene;
+    }
+
     public void changescene(SceneState state)
     {
         switch (state)

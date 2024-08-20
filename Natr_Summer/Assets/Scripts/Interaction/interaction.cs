@@ -7,7 +7,7 @@ public class interaction : MonoBehaviour
     [SerializeField]
     private GameObject _interaction;
     [SerializeField]
-    private GameManager _gm;
+    private DialoguePrint _dp;
 
     public bool _isCoroutine = false;
 
@@ -24,7 +24,7 @@ public class interaction : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    StartCoroutine(_gm.StartDialogue());
+                    StartCoroutine(_dp.StartDialogue());
 
                     _isCoroutine = true;
                 }
@@ -33,9 +33,9 @@ public class interaction : MonoBehaviour
 
        else
         {
-            if (_gm.img_script.activeInHierarchy == false)
+            if (_dp.img_script.activeInHierarchy == false)
             {
-                StopCoroutine(_gm.StartDialogue());
+                StopCoroutine(_dp.StartDialogue());
                 _isCoroutine = false;
             }
         }
