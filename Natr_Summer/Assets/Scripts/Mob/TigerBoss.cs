@@ -17,6 +17,7 @@ public class TigerBoss : Mob
     private float   _pase2SkillSelectRandom;
     [SerializeField]
     private float   _moveSpeed = 5f;
+    private float   _dashSpeed = 10f;
     private float   _skillCoolTime;
     private float   _playerDirection;
     private bool    _isMove = true;
@@ -179,8 +180,22 @@ public class TigerBoss : Mob
         Debug.Log("TailAttack");
         _animator.SetTrigger("tailAttack");
 
+        _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
+        Vector3 _mobFollow = _targetPos.position - this.transform.position;
+        _mobFollow.Normalize();
+
+        if (_mobFollow.x > 0)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        else if (_mobFollow.x < 0)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+
         //애니메이션 재생 중 꼬리 히트박스 활성화
-        yield return new WaitForSeconds(5*Time.deltaTime);
+        _hitBox_tail.GetComponent<BoxCollider2D>().enabled = true;
+
+        yield return new WaitForSeconds(5.0f);
+
+        _hitBox_tail.GetComponent<BoxCollider2D>().enabled = false;
 
         _isMove = true;
     }
@@ -192,6 +207,7 @@ public class TigerBoss : Mob
         //도약 애니메이션 재생 시 y 좌표 상승, 이후 플레이어 머리 위에서 착지
         Debug.Log("JumpAttack");
         _animator.SetTrigger("jumpAttack");
+
 
         yield return new WaitForSeconds(8*Time.deltaTime);
 
@@ -206,7 +222,22 @@ public class TigerBoss : Mob
         Debug.Log("DashAttack");
         _animator.SetTrigger("dashAttack");
 
-        yield return new WaitForSeconds(8 * Time.deltaTime);
+        yield return new WaitForSeconds(4.0f);
+
+        _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
+        Vector3 _mobFollow = _targetPos.position - this.transform.position;
+        _mobFollow.Normalize();
+
+        if (_mobFollow.x > 0)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+
+        else if (_mobFollow.x < 0)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        //플레이어와 몬스터의 위치가 겹쳐지지 않도록 해야 함
+        transform.position += _mobFollow * _dashSpeed * Time.deltaTime;
+
+        yield return new WaitForSeconds(4.0f);
 
         _isMove = true;
     }

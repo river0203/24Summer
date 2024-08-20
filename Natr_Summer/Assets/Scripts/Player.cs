@@ -215,7 +215,7 @@ public class Player : Mob
     {
         Debug.Log("player onTriggerEnter");
 
-        if (collision.CompareTag("EnemyWeapon"))
+        if (collision.CompareTag("EnemyWeapon") || collision.CompareTag("BossWeapon_tail") || collision.CompareTag("BossWeapon_jump") || collision.CompareTag("BossWeapon_dash"))
         {
             Debug.Log("Player : Hit\n");
             Debug.Log($"{_currentHp}");
@@ -223,6 +223,7 @@ public class Player : Mob
             if (_currentHp <= 0)
             {
                 _animator.SetTrigger("Death");
+                Invoke("DeadAnim", 1f);
             }
             else
             {

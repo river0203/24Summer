@@ -101,8 +101,9 @@ public class DialoguePrint : MonoBehaviour
         return false;
     }
 
-    public bool onClickButton()
+    public void onClickButton()
     {
-        return true;
+        eventNumber++;
+        currentLineIndex++;
     }
 }
