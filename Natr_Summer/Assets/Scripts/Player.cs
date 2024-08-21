@@ -21,7 +21,7 @@ public class Player : Mob
     private float   _knockBackDuration = 0.5f;
     private float   _knockBackTimer = 0f;
     //attack
-    private float   _coolTime = 0.6f;
+    private float   _coolTime = 0.3f;
     private float   curTime;
 
     private bool    _gateOpen = false;
@@ -189,9 +189,6 @@ public class Player : Mob
     public void DeadAnim()
     {
         dead(this.gameObject);
-        int currentScene = _changeScene.getcurrentScene();
-
-        _changeScene.changescene((SceneState)currentScene);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -213,6 +210,13 @@ public class Player : Mob
         if(collision.CompareTag("Gate"))
         {
             Debug.Log("Gate Enter");
+
+            int currentScene = _changeScene.getcurrentScene();
+
+            if (currentScene == 2)
+            {
+                transform.position = new Vector3(23, -1.23f, 0);
+            }
         }
     }
 

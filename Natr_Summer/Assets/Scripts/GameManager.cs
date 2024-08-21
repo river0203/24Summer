@@ -72,6 +72,12 @@ public class GameManager : MonoBehaviour
         _playercurrentHP = _player.getplayerhp();
 
         if (_playercurrentHP <= 1)
-            gameloop = false;
+        {
+            int currentScene = _scene.getcurrentScene();
+
+            _scene.changescene((SceneState)currentScene);
+
+            _playercurrentHP = _maxHp;
+        }
     }
 }

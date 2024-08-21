@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,10 @@ public class Boss_renual : Mob
     private float _moveSpeed = 5f;
     private float _dashSpeed = 10f;
     private float _playerDirection;
+    private float _basicJumpForce = 30;
+    private float _jumpTime = 0f;
+
+    private bool _areainPlayer = false;
 
     [SerializeField]
     private int _SkillSelcetRandom;
@@ -17,11 +22,13 @@ public class Boss_renual : Mob
     private float _skillcurrenttime = 0.0f;
     private float _waittime = 0.0f;
     private BOSSSTATE _bossstate;
+
     private Transform _targetPos;
     private Rigidbody2D _rb;
     private GameObject _hitBox_tail;
     private GameObject _hitBox_jump;
     private GameObject _hitBox_dash;
+    private BoxCollider2D boxCollider;
     private Animator _animator;
 
     enum BOSSSTATE
@@ -37,6 +44,7 @@ public class Boss_renual : Mob
         _hitBox_tail = GameObject.FindGameObjectWithTag("BossWeapon_tail");
         _hitBox_jump = GameObject.FindGameObjectWithTag("BossWeapon_jump");
         _hitBox_dash = GameObject.FindGameObjectWithTag("BossWeapon_dash");
+        boxCollider = GetComponent<BoxCollider2D>();   
         _hp = _maxhp;
 
         _bossstate = BOSSSTATE.IDLE;
@@ -47,13 +55,6 @@ public class Boss_renual : Mob
         if (_bossstate == BOSSSTATE.DEATH)
             return;
 
-        _skillcurrenttime += Time.deltaTime;
-
-        if (_skillcurrenttime >= _skillCooltime)
-        {
-            think();
-        }
-
         if (_bossstate == BOSSSTATE.MOVE)
         {
             move();
@@ -63,6 +64,20 @@ public class Boss_renual : Mob
         {
             _animator.SetBool("isMove", false);
         }
+
+        if (_areainPlayer)
+        {
+            if (_bossstate != BOSSSTATE.TAIL || _bossstate != BOSSSTATE.DASH || _bossstate != BOSSSTATE.JUMP)
+                _skillcurrenttime += Time.deltaTime;
+
+            if (_skillcurrenttime >= _skillCooltime)
+            {
+                think();
+            }
+        }
+
+        else
+            playerDirection();
     }
 
     private void think()
@@ -110,9 +125,7 @@ public class Boss_renual : Mob
         yield return new WaitForSeconds(0.1f);
 
         //플레이어 위치 추적
-        _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
-        Vector3 _mobFollow = _targetPos.position - this.transform.position;
-        _mobFollow.Normalize();
+        Vector3 _mobFollow = playerDirection();
 
         //플레이어의 반대 방향으로 회전
         if (_mobFollow.x > 0)
@@ -141,9 +154,7 @@ public class Boss_renual : Mob
 
         yield return new WaitForSeconds(0.2f);
 
-        _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
-        Vector3 _mobFollow = _targetPos.position - this.transform.position;
-        _mobFollow.Normalize();
+        Vector3 _mobFollow = playerDirection();
 
         _animator.SetTrigger("dashAttack");
         _hitBox_dash.GetComponent<BoxCollider2D>().enabled = true;
@@ -156,7 +167,7 @@ public class Boss_renual : Mob
 
             while (transform.position.x <= targetPos.x)
             {
-                yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSeconds(0.001f);
                 transform.position += _mobFollow * _dashSpeed * Time.deltaTime;
             }
         }
@@ -187,21 +198,31 @@ public class Boss_renual : Mob
 
         _animator.SetTrigger("jumpReady");
 
-        if (transform.rotation.y == 0)
-        {
-            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(3, -15, 0), 0.2f);
-        }
-
-        else
-        {
-            transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(3, 15, 0), 0.2f);
-        }
-
         yield return new WaitForSeconds(0.2f);
+
+        Vector3 targetPos = this.transform.position + new Vector3(0, 15, 0);
+
+        boxCollider.isTrigger = true;
+
+        while (transform.position.y < targetPos.y)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            _rb.velocity = Vector2.zero;
+            _rb.AddForce(Vector2.up * _basicJumpForce * ((_jumpTime * 10) + 1f), ForceMode2D.Impulse);
+            _jumpTime += Time.deltaTime;
+        }
+        _jumpTime = 0;
+
+        _hitBox_jump.GetComponent<BoxCollider2D>().enabled = true;
+
+        targetPos.x = _targetPos.position.x;
+        this.transform.position = targetPos;
 
         _animator.SetTrigger("jumpAttack");
 
-        yield return new WaitForSeconds(0.6f);
+        _hitBox_jump.GetComponent<BoxCollider2D>().enabled = false;
+        boxCollider.isTrigger = false;
 
         _bossstate = BOSSSTATE.MOVE;
 
@@ -226,7 +247,7 @@ public class Boss_renual : Mob
         _hitBox_jump.GetComponent<BoxCollider2D>().enabled = false;
         _hitBox_dash.GetComponent<BoxCollider2D>().enabled = false;
 
-        Invoke("DeadAnim", 1f);
+        Invoke("DeadAnim", 1.0f);
     }
 
     private void DeadAnim()
@@ -234,13 +255,29 @@ public class Boss_renual : Mob
         dead(this.gameObject);
     }
 
+    private Vector3 playerDirection()
+    {
+        _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
+        Vector3 _mobFollow = _targetPos.position - this.transform.position;
+        _mobFollow.Normalize();
+
+        if (_playerDirection >= 20f)
+        {
+            _areainPlayer = false;
+        }
+        else
+        {
+            _areainPlayer = true;
+        }
+
+        return _mobFollow;
+    }
+
     public override void move()
     {
         _animator.SetBool("isMove", true);
 
-        _playerDirection = Vector3.Distance(this.transform.position, _targetPos.transform.position);
-        Vector3 _mobFollow = _targetPos.position - this.transform.position;
-        _mobFollow.Normalize();
+        Vector3 _mobFollow = playerDirection();
 
         if (_mobFollow.x > 0)
             transform.rotation = Quaternion.Euler(0, 180, 0);

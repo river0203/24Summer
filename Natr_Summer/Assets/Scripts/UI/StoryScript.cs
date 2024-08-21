@@ -12,12 +12,14 @@ public class StoryScript : MonoBehaviour
     private int eventNumber = 0;
 
     private changeScene scene;
+    private Animator    _animator;
     //private GameManager _gm;
 
     private void Start()
     {
         //_gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         scene = new changeScene();
+        _animator = GetComponent<Animator>();
 
         enumerator = _dp.StartDialogue();
 
@@ -57,6 +59,9 @@ public class StoryScript : MonoBehaviour
     {
         Debug.Log("change backgoround 진입");
         //이미지 변경 스크립트 추가
+
+        _animator.SetBool("changeImage", true);
+
         if (!_isCoroutine)
         {
             StartCoroutine(_dp.StartDialogue());

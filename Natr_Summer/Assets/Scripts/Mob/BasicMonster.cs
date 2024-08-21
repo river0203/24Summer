@@ -40,6 +40,8 @@ public class BasicMonster : Mob
     }
     private void Update()
     {
+        if (_hp <= 0)
+            return;
 
         if (_playerPosition == null)
         {
@@ -50,7 +52,10 @@ public class BasicMonster : Mob
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(_presentMobState != MobState.ATTACK)
+        if (_hp <= 0)
+            return;
+
+        if (_presentMobState != MobState.ATTACK)
         {
             move();
         }
@@ -87,6 +92,7 @@ public class BasicMonster : Mob
                 transform.rotation = Quaternion.Euler(0, 0, 0);
 
             transform.position += _mobFollow * _moveSpeed * Time.deltaTime;
+
             if (_playerDirection <= 2.5f)
             {
                 _anim.SetTrigger("Attack");
@@ -126,13 +132,17 @@ public class BasicMonster : Mob
     {
         //Debug.Log("Mob : Hit");
         _hp -= 1;
-        _anim.SetTrigger("Damage");
         if (_hp <= 0)
         {
             StartCoroutine(DropItem());
             _hitBox.GetComponent<BoxCollider2D>().enabled = false;
-            _anim.SetTrigger("Death");
-            Invoke("Dead", 0.7f);
+            _anim.SetBool("Death", true);
+            Invoke("Dead", 0.6f);
+        }
+
+        else
+        {
+            _anim.SetTrigger("Damage");
         }
     }
     public void ExitDamage()
